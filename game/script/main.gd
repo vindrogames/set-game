@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 var fichas = []
 var tablero = []
 var num_selected = 0
@@ -11,6 +9,8 @@ var sound_correct
 var sound_wrong
 var winners = []
 
+##########################
+#    
 func _init():
 	randomize()
 	init_fichas()
@@ -21,9 +21,22 @@ func _ready():
 	get_node("helper/Label2").hide()
 	#get_node("helper/tablero_label").hide()
 # warning-ignore:unused_variable
-	for i in range(0,12):
-		tablero.append(fichas.pop_front())
-		
+	var tablero_valido = false
+	
+	while (not tablero_valido):
+	# We fill the initial board with the fichas
+		for i in range(0,12):
+			tablero.append(fichas.pop_front())
+		# Lets check if there is at least 1 solution available
+		tablero_valido = solution_finder_simple()
+		# If there is no slution available we reset the state of the game completely
+		if (not tablero_valido):
+			clear_solver_button_container()
+			fichas.clear()
+			init_fichas()
+			update_label_text()
+			tablero.clear()	
+	
 	update_tablero_text()
 	update_label_text()
 	sound_click = get_node("sound/click")
@@ -47,10 +60,15 @@ func add_num_selected():
 	
 func sub_num_selected():
 	num_selected = num_selected - 1
-	
+
+##############################################################################
+# This function tracks the selection of cards that the user does when playing
+#
+
 func add_selections(n):
 	selections.append(n)
 	add_num_selected()
+	# When the user select the third card then we check if the selection is valid
 	if num_selected > 2:
 		var resul = solver_params(tablero[selections[0]],tablero[selections[1]],tablero[selections[2]])
 		if resul:
@@ -82,9 +100,11 @@ func add_selections(n):
 			sound_correct.play()
 			get_node("helper/solutions_label").set_text("")
 			clear_solver_button_container()
+			# Again we check if there is a solution available after poping the cards
 			var check_if_solution = solution_finder_simple()
 			if not check_if_solution:
 				print("Warning: there is no solution available")
+				#TODO: We have to do something in case there is no solution available
 			else:
 				print("Ok: Solution available")
 			
@@ -100,6 +120,7 @@ func add_selections(n):
 
 func clear_buttons():
 	#TODO: aqui tengo que arreglar el tema de que no me resetee el color de los botones
+	# DONE? -> Fixed i think
 	if tablero[0]:
 		get_node("topleft").clear_button()
 	if tablero[1]:
@@ -583,3 +604,11 @@ func reset_tablero():
 	#solver_params(tablero[0],tablero[1],tablero[2])
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
+
+
+func _on_how_to_play_button_pressed():
+	get_node("how_to_play_dialog").popup()
+
+
+func _on_close_help_button_pressed():
+	get_node("how_to_play_dialog").hide()

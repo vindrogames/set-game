@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://script/main.gd" type="Script" id=1]
 [ext_resource path="res://snd/click.wav" type="AudioStream" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://font/MontserratAlternates-Bold.otf" type="DynamicFontData" id=18]
 [ext_resource path="res://font/Montserrat-ExtraBold.otf" type="DynamicFontData" id=19]
 [ext_resource path="res://font/Montserrat-SemiBold.otf" type="DynamicFontData" id=20]
+[ext_resource path="res://font/Montserrat-Black.otf" type="DynamicFontData" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 45 )
@@ -38,6 +39,14 @@ font_data = ExtResource( 19 )
 [sub_resource type="DynamicFont" id=5]
 size = 20
 font_data = ExtResource( 20 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 34
+font_data = ExtResource( 21 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 45
+font_data = ExtResource( 18 )
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( -1.80493, 2.70746 )
@@ -240,14 +249,11 @@ shape = SubResource( 1 )
 [node name="helper" type="Node" parent="."]
 
 [node name="Label2" type="Label" parent="helper"]
-margin_left = 799.082
-margin_top = 482.428
-margin_right = 901.082
-margin_bottom = 496.428
+margin_left = 734.0
+margin_top = 688.0
+margin_right = 836.0
+margin_bottom = 702.0
 text = "TABLERO"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="tablero_label" type="Label" parent="helper"]
 margin_left = 10.0
@@ -258,14 +264,11 @@ text = "STATUS to be updated
 "
 
 [node name="cardlist_label" type="Label" parent="helper"]
-margin_left = 838.901
-margin_top = 17.6175
-margin_right = 1005.9
-margin_bottom = 500.617
+margin_left = 729.0
+margin_top = 89.0
+margin_right = 895.999
+margin_bottom = 572.0
 text = "cardlist"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="solver_label" type="RichTextLabel" parent="helper"]
 margin_left = 153.248
@@ -279,10 +282,10 @@ __meta__ = {
 }
 
 [node name="solutions_label" type="RichTextLabel" parent="helper"]
-margin_left = 618.894
-margin_top = 751.85
-margin_right = 838.894
-margin_bottom = 834.85
+margin_left = 616.0
+margin_top = 818.0
+margin_right = 836.0
+margin_bottom = 901.0
 custom_fonts/mono_font = SubResource( 3 )
 custom_fonts/normal_font = SubResource( 4 )
 __meta__ = {
@@ -321,9 +324,6 @@ margin_top = 820.475
 margin_right = 372.789
 margin_bottom = 927.475
 custom_constants/separation = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button" type="Button" parent="solver_button_container"]
 margin_right = 205.0
@@ -339,5 +339,37 @@ margin_top = 60.0
 margin_right = 205.0
 margin_bottom = 80.0
 
+[node name="how_to_play_button" type="Button" parent="."]
+margin_left = 18.8049
+margin_top = 804.293
+margin_right = 87.8049
+margin_bottom = 870.293
+custom_fonts/font = SubResource( 6 )
+text = "¿?"
+
+[node name="how_to_play_dialog" type="PopupDialog" parent="."]
+visible = true
+margin_left = 4.80493
+margin_top = -3.70746
+margin_right = 540.805
+margin_bottom = 953.293
+
+[node name="close_help_button" type="Button" parent="how_to_play_dialog"]
+margin_left = 205.0
+margin_top = 722.0
+margin_right = 313.0
+margin_bottom = 794.0
+text = "CLOSE"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="how_to_play_dialog"]
+margin_left = 50.0
+margin_top = 46.0
+margin_right = 494.0
+margin_bottom = 230.0
+custom_fonts/normal_font = SubResource( 7 )
+text = "This is how you play"
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]
+[connection signal="pressed" from="how_to_play_button" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="how_to_play_dialog/close_help_button" to="." method="_on_close_help_button_pressed"]
