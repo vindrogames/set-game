@@ -1,2 +1,7 @@
 export/
 debug.keystore
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
