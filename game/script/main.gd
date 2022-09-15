@@ -275,14 +275,16 @@ func get_random_sprite_name():
 	#print(final_string)
 	return final_string
 
+
 func update_label_text():
 	var tmp_text = ""
 	var iterator = 0
 	for i in fichas:
 		tmp_text = tmp_text + i.print_name_simple() + "\n"
-		iterator = iterator + 1		
+		iterator = iterator + 1
 	get_node("helper/cardlist_label").set_text(tmp_text)
 	
+
 func update_tablero_text():
 	var tmp_text = ""
 	var iterator = 0
@@ -368,7 +370,7 @@ func update_tablero_text():
 	else:
 		get_node("bottomright/CollisionShape2D/sprite").modulate = color_apagado
 		get_node("bottomright/CollisionShape2D").disabled = true
-	
+	get_node("helper/tablero_label").set_text(str(fichas.size()))
 func restart():
 	clear_solver_button_container()
 	fichas.clear()
@@ -513,17 +515,17 @@ func solution_finder():
 			winners_label_text = winners_label_text + str(int(l[0])+1) + " " + str(int(l[1])+1) + " " + str(int(l[2])+1) + "\n"
 			var button1 = Button.new()
 			#button1.text = str(int(l[0])+1) + " " + str(int(l[1])+1) + " " + str(int(l[2])+1)			
-			button1.connect("pressed", self, "_on_button_solver_pressed")
-			button1.connect("mouse_entered", self, "_on_button_solver_entered",[l[0],l[1],l[2]])
-			button1.connect("button_down", self, "_on_button_solver_entered",[l[0],l[1],l[2]])
-			button1.connect("mouse_exited", self, "_on_button_solver_exited",[l[0],l[1],l[2]])
-			button1.connect("button_up", self, "_on_button_solver_exited",[l[0],l[1],l[2]])
+			button1.connect("pressed",Callable(self,"_on_button_solver_pressed"))
+			button1.connect("mouse_entered",Callable(self,"_on_button_solver_entered").bind(l[0],l[1],l[2]))
+			button1.connect("button_down",Callable(self,"_on_button_solver_entered").bind(l[0],l[1],l[2]))
+			button1.connect("mouse_exited",Callable(self,"_on_button_solver_exited").bind(l[0],l[1],l[2]))
+			button1.connect("button_up",Callable(self,"_on_button_solver_exited").bind(l[0],l[1],l[2]))
 			button1.set("first",1)
 			get_node("solver_button_container").add_child(button1)			
 	print(winners)
 	get_node("helper/solutions_label").set_text(winners_label_text)
 	
-# This funcion will simply check if there is any solution available on the current status of the board
+# This funcion will simply check if there is any solution available checked the current status of the board
 func solution_finder_simple():
 	
 	var exist_solution = false
