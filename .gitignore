@@ -5,3 +5,6 @@ debug.keystore
 .import/
 export.cfg
 export_presets.cfg
+game/.godot/editor*
+game/.godot/shader_cache
+game/.godot/editor/*

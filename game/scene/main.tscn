@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7b0iuuqwoaye"]
+[gd_scene load_steps=19 format=3 uid="uid://c7b0iuuqwoaye"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://byihdw4aai81o" path="res://snd/click.wav" id="2"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://script/bottommiddle1.gd" id="15"]
 [ext_resource type="Script" path="res://script/bottommiddle2.gd" id="16"]
 [ext_resource type="Script" path="res://script/bottomright.gd" id="17"]
+[ext_resource type="Texture2D" uid="uid://5l7vq0ftnwpp" path="res://img/img-128x90/3-P-S-B.png" id="17_fk367"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(128, 90)
@@ -134,10 +135,11 @@ shape = SubResource("1")
 [node name="sprite" type="Sprite2D" parent="bottomright/CollisionShape2D"]
 
 [node name="Button" type="Button" parent="."]
-offset_left = 167.789
-offset_top = 526.59
-offset_right = 376.789
-offset_bottom = 581.59
+offset_left = 299.805
+offset_top = 662.293
+offset_right = 508.805
+offset_bottom = 717.293
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "No SET"
 
 [node name="button_finder" type="Button" parent="."]
@@ -148,7 +150,7 @@ offset_bottom = 797.142
 text = "SOLVE"
 
 [node name="solved1" type="Area2D" parent="."]
-position = Vector2(105.79, 687.708)
+position = Vector2(660.805, 535.292)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="solved1"]
 shape = SubResource("1")
@@ -156,7 +158,7 @@ shape = SubResource("1")
 [node name="sprite" type="Sprite2D" parent="solved1/CollisionShape2D"]
 
 [node name="solved2" type="Area2D" parent="."]
-position = Vector2(269.579, 687.708)
+position = Vector2(823.594, 535.292)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="solved2"]
 shape = SubResource("1")
@@ -164,7 +166,7 @@ shape = SubResource("1")
 [node name="sprite" type="Sprite2D" parent="solved2/CollisionShape2D"]
 
 [node name="solved3" type="Area2D" parent="."]
-position = Vector2(429.526, 687.708)
+position = Vector2(983.541, 535.292)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="solved3"]
 shape = SubResource("1")
@@ -181,10 +183,10 @@ offset_bottom = 702.0
 text = "TABLERO"
 
 [node name="tablero_label" type="Label" parent="helper"]
-offset_left = 10.0
-offset_top = 553.0
-offset_right = 150.0
-offset_bottom = 584.0
+offset_left = 341.0
+offset_top = 892.0
+offset_right = 512.0
+offset_bottom = 923.0
 text = "STATUS to be updated
 "
 
@@ -208,10 +210,10 @@ offset_right = 836.0
 offset_bottom = 901.0
 
 [node name="last_solved_label" type="Label" parent="helper"]
-offset_left = 201.0
-offset_top = 601.0
-offset_right = 347.0
-offset_bottom = 636.0
+offset_left = 745.0
+offset_top = 433.0
+offset_right = 891.0
+offset_bottom = 468.0
 text = "LAST SOLVED"
 
 [node name="sound" type="Node" parent="."]
@@ -274,6 +276,26 @@ offset_top = 46.0
 offset_right = 494.0
 offset_bottom = 230.0
 text = "This is how you play"
+
+[node name="3-p-s-b" type="Sprite2D" parent="."]
+position = Vector2(185.805, 554.293)
+rotation = 1.5708
+texture = ExtResource("17_fk367")
+
+[node name="3-p-s-b2" type="Sprite2D" parent="."]
+position = Vector2(68.8049, 553.292)
+rotation = 1.5708
+texture = ExtResource("17_fk367")
+
+[node name="3-p-s-b3" type="Sprite2D" parent="."]
+position = Vector2(300.805, 555.293)
+rotation = 1.5708
+texture = ExtResource("17_fk367")
+
+[node name="3-p-s-b4" type="Sprite2D" parent="."]
+position = Vector2(408.805, 553.292)
+rotation = 1.5708
+texture = ExtResource("17_fk367")
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]
