@@ -9,6 +9,8 @@ var sound_click
 var sound_correct
 var sound_wrong
 var winners = []
+# We can track if the game is paused, for now only for the timer feature
+var global_pause = false
 
 
 
@@ -52,7 +54,11 @@ func _ready():
 		print("Warning: there is no solution available")
 	else:
 		print("Ok: Solution available")
-	
+
+func _process(_delta):
+	# Order the CanvasItem to update every frame.
+	update_timer()
+
 func clickok():
 	sound_click.play()
 
@@ -586,11 +592,57 @@ func reset_tablero():
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
 
+# Timer function to check how much time passed until the users end the panel
+# TODO: A pausing feature for when game ends/ or when using the how to play button
+# we track if only 1 second or 1 minute passed to update the text on those intervals
+var minutes = 0
+var old_minutes = 0
+var seconds = 0
+var old_seconds = 0
+
+# This will get the starting unix time in the format 232322323223
+var initial_unix_time: float = Time.get_unix_time_from_system()
+var initial_unix_time_int: int = initial_unix_time
+
+var pause_starts: float = 0
+var pause_ends: float = 0
+var pause_time: float = 0
+	
+# Now the function itself, since we want to check how  much time passed
+func update_timer():
+	
+	
+	var unix_time: float = Time.get_unix_time_from_system()
+	var unix_time_int: int = unix_time
+	var actual_time_passed: int = (unix_time - initial_unix_time) - (pause_time)	
+	var dt: Dictionary = Time.get_datetime_dict_from_unix_time(actual_time_passed)
+	# originally the format was $s as string but using $02d will autocomplete ceroes in the left
+	var str := "Time:\n "+"%02d:%02d" % [dt.minute, dt.second]
+	old_minutes = minutes
+	old_seconds = seconds
+	minutes = dt.minute
+	seconds = dt.second
+	#this If will make sure to only update every second or every minute
+	if (((minutes != old_minutes) || (seconds != old_seconds)) && not global_pause ):
+		#print(str)
+		get_node("TimerButton/TimerButtonText").clear()
+		get_node("TimerButton/TimerButtonText").add_text(str)
+
 
 func _on_how_to_play_button_pressed():
+	global_pause = true
+	pause_starts = 0
+	pause_ends = 0
+	var unix_time: float = Time.get_unix_time_from_system()
+	pause_starts = Time.get_unix_time_from_system()
 	get_node("how_to_play_dialog").popup()
 
 
 func _on_close_help_button_pressed():
+	global_pause = false
+	pause_ends = Time.get_unix_time_from_system()
+	pause_time = pause_time + pause_ends - pause_starts
+	pause_ends = 0
+	pause_starts = 0
 	get_node("how_to_play_dialog").hide()
 

@@ -8,3 +8,4 @@ export_presets.cfg
 game/.godot/editor*
 game/.godot/shader_cache
 game/.godot/editor/*
+game/.godot/uid_cache.bin

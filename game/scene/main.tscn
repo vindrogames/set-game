@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7b0iuuqwoaye"]
+[gd_scene load_steps=23 format=3 uid="uid://c7b0iuuqwoaye"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://byihdw4aai81o" path="res://snd/click.wav" id="2"]
@@ -17,6 +17,10 @@
 [ext_resource type="Script" path="res://script/bottommiddle2.gd" id="16"]
 [ext_resource type="Script" path="res://script/bottomright.gd" id="17"]
 [ext_resource type="Texture2D" uid="uid://5l7vq0ftnwpp" path="res://img/img-128x90/3-P-S-B.png" id="17_fk367"]
+[ext_resource type="Texture2D" uid="uid://brdorhv4ckojn" path="res://img/button_states/normal.png" id="18_5gyom"]
+[ext_resource type="Texture2D" uid="uid://tfubl7arts0e" path="res://img/button_states/on_click.png" id="19_cgw04"]
+[ext_resource type="Texture2D" uid="uid://3o8408q14cqn" path="res://img/button_states/on_hover.png" id="20_8tkt5"]
+[ext_resource type="FontFile" uid="uid://ckh8xewlx2cje" path="res://font/MontserratAlternates-Bold.otf" id="21_kb2xh"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(128, 90)
@@ -253,15 +257,8 @@ offset_top = 24.0
 offset_right = 205.0
 offset_bottom = 32.0
 
-[node name="how_to_play_button" type="Button" parent="."]
-offset_left = 18.8049
-offset_top = 804.293
-offset_right = 87.8049
-offset_bottom = 870.293
-text = "¿?"
-
 [node name="how_to_play_dialog" type="Popup" parent="."]
-size = Vector2i(263, 753)
+size = Vector2i(600, 753)
 
 [node name="close_help_button" type="Button" parent="how_to_play_dialog"]
 offset_left = 205.0
@@ -278,26 +275,64 @@ offset_bottom = 230.0
 text = "This is how you play"
 
 [node name="3-p-s-b" type="Sprite2D" parent="."]
-position = Vector2(185.805, 554.293)
+position = Vector2(159.805, 554.292)
 rotation = 1.5708
 texture = ExtResource("17_fk367")
 
 [node name="3-p-s-b2" type="Sprite2D" parent="."]
-position = Vector2(68.8049, 553.292)
+position = Vector2(56.8049, 554.293)
 rotation = 1.5708
 texture = ExtResource("17_fk367")
 
 [node name="3-p-s-b3" type="Sprite2D" parent="."]
-position = Vector2(300.805, 555.293)
+position = Vector2(260.805, 554.292)
 rotation = 1.5708
 texture = ExtResource("17_fk367")
 
 [node name="3-p-s-b4" type="Sprite2D" parent="."]
-position = Vector2(408.805, 553.292)
+position = Vector2(359.805, 555.293)
 rotation = 1.5708
 texture = ExtResource("17_fk367")
 
+[node name="HowToPlayButton" type="TextureButton" parent="."]
+offset_left = 16.8049
+offset_top = 852.292
+offset_right = 142.805
+offset_bottom = 942.292
+texture_normal = ExtResource("18_5gyom")
+texture_pressed = ExtResource("19_cgw04")
+texture_hover = ExtResource("20_8tkt5")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayButton"]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 91.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("21_kb2xh")
+theme_override_font_sizes/normal_font_size = 30
+text = "How to Play"
+
+[node name="TimerButton" type="TextureButton" parent="."]
+offset_left = 14.8049
+offset_top = 699.292
+offset_right = 140.805
+offset_bottom = 789.292
+button_mask = 0
+texture_normal = ExtResource("18_5gyom")
+
+[node name="TimerButtonText" type="RichTextLabel" parent="TimerButton"]
+layout_mode = 1
+offset_right = 126.0
+offset_bottom = 91.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("21_kb2xh")
+theme_override_font_sizes/normal_font_size = 30
+text = "Time:
+00:00"
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]
-[connection signal="pressed" from="how_to_play_button" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="how_to_play_dialog/close_help_button" to="." method="_on_close_help_button_pressed"]
+[connection signal="pressed" from="HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
