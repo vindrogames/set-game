@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c7b0iuuqwoaye"]
+[gd_scene load_steps=24 format=3 uid="uid://c7b0iuuqwoaye"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://byihdw4aai81o" path="res://snd/click.wav" id="2"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://tfubl7arts0e" path="res://img/button_states/on_click.png" id="19_cgw04"]
 [ext_resource type="Texture2D" uid="uid://3o8408q14cqn" path="res://img/button_states/on_hover.png" id="20_8tkt5"]
 [ext_resource type="FontFile" uid="uid://ckh8xewlx2cje" path="res://font/MontserratAlternates-Bold.otf" id="21_kb2xh"]
+[ext_resource type="Texture2D" uid="uid://b137mrf3fsixt" path="res://img/cards_left_states/full.png" id="22_83tx5"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(128, 90)
@@ -139,10 +140,10 @@ shape = SubResource("1")
 [node name="sprite" type="Sprite2D" parent="bottomright/CollisionShape2D"]
 
 [node name="Button" type="Button" parent="."]
-offset_left = 299.805
-offset_top = 662.293
-offset_right = 508.805
-offset_bottom = 717.293
+offset_left = 364.805
+offset_top = 752.293
+offset_right = 573.805
+offset_bottom = 807.293
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "No SET"
 
@@ -151,7 +152,8 @@ offset_left = 198.721
 offset_top = 749.142
 offset_right = 342.721
 offset_bottom = 797.142
-text = "SOLVE"
+text = "Trampas
+Temporal"
 
 [node name="solved1" type="Area2D" parent="."]
 position = Vector2(660.805, 535.292)
@@ -187,10 +189,10 @@ offset_bottom = 702.0
 text = "TABLERO"
 
 [node name="tablero_label" type="Label" parent="helper"]
-offset_left = 341.0
-offset_top = 892.0
-offset_right = 512.0
-offset_bottom = 923.0
+offset_left = 629.0
+offset_top = 856.0
+offset_right = 800.0
+offset_bottom = 887.0
 text = "STATUS to be updated
 "
 
@@ -235,27 +237,31 @@ stream = ExtResource("5")
 stream = ExtResource("2")
 
 [node name="solver_button_container" type="VBoxContainer" parent="."]
-offset_left = 167.789
-offset_top = 820.475
-offset_right = 372.789
-offset_bottom = 927.475
+offset_left = 169.805
+offset_top = 814.293
+offset_right = 369.805
+offset_bottom = 914.293
+size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="solver_button_container"]
+custom_minimum_size = Vector2i(0, 20)
 layout_mode = 2
-offset_right = 205.0
-offset_bottom = 8.0
-
-[node name="Button2" type="Button" parent="solver_button_container"]
-layout_mode = 2
-offset_top = 12.0
-offset_right = 205.0
+offset_right = 200.0
 offset_bottom = 20.0
 
-[node name="Button3" type="Button" parent="solver_button_container"]
+[node name="Button2" type="Button" parent="solver_button_container"]
+custom_minimum_size = Vector2i(0, 20)
 layout_mode = 2
 offset_top = 24.0
-offset_right = 205.0
-offset_bottom = 32.0
+offset_right = 200.0
+offset_bottom = 44.0
+
+[node name="Button3" type="Button" parent="solver_button_container"]
+custom_minimum_size = Vector2i(0, 20)
+layout_mode = 2
+offset_top = 48.0
+offset_right = 200.0
+offset_bottom = 68.0
 
 [node name="how_to_play_dialog" type="Popup" parent="."]
 size = Vector2i(600, 753)
@@ -331,6 +337,27 @@ theme_override_fonts/normal_font = ExtResource("21_kb2xh")
 theme_override_font_sizes/normal_font_size = 30
 text = "Time:
 00:00"
+
+[node name="CardsLeftButton" type="TextureButton" parent="."]
+offset_left = 416.805
+offset_top = 522.292
+offset_right = 542.805
+offset_bottom = 612.292
+button_mask = 0
+texture_normal = ExtResource("22_83tx5")
+
+[node name="CardsLeftButtonText" type="RichTextLabel" parent="CardsLeftButton"]
+layout_mode = 1
+offset_left = 18.0
+offset_top = 12.0001
+offset_right = 144.0
+offset_bottom = 103.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("21_kb2xh")
+theme_override_font_sizes/normal_font_size = 23
+text = "Cards
+Left: 81"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]

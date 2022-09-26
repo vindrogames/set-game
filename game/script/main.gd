@@ -1,6 +1,7 @@
 extends Node2D
 
 
+const MAX_FICHAS = 81
 var fichas = []
 var tablero = []
 var num_selected = 0
@@ -272,6 +273,7 @@ func solver_params(t1, t2, t3):
 	var result_color = true
 	var result_shape = true
 	var result_fill = true
+	var result_no_ficha = true
 	
 	var ficha1
 	var ficha2
@@ -281,37 +283,39 @@ func solver_params(t1, t2, t3):
 	ficha2 = t2
 	ficha3 = t3
 	
+	# We have to check if there are no cards on the spot positions of the tablero
 	if not ficha1 or not ficha2 or not ficha3:
-		return false
-	
-	if ficha1.get_n() == ficha2.get_n() and ficha1.get_n() != ficha3.get_n():
-		result_num = false
-	if ficha1.get_c() == ficha2.get_c() and ficha1.get_c() != ficha3.get_c():
-		result_color = false
-	if ficha1.get_s() == ficha2.get_s() and ficha1.get_s() != ficha3.get_s():
-		result_shape = false
-	if ficha1.get_f() == ficha2.get_f() and ficha1.get_f() != ficha3.get_f():
-		result_fill = false
-	
-	if ficha2.get_n() == ficha3.get_n() and ficha2.get_n() != ficha1.get_n():
-		result_num = false
-	if ficha2.get_c() == ficha3.get_c() and ficha2.get_c() != ficha1.get_c():
-		result_color = false
-	if ficha2.get_s() == ficha3.get_s() and ficha2.get_s() != ficha1.get_s():
-		result_shape = false
-	if ficha2.get_f() == ficha3.get_f() and ficha2.get_f() != ficha1.get_f():
-		result_fill = false
+		result_no_ficha = false
+		# If there is any ficha  missing then for sure we cannot proceed
+	else:
+		if ficha1.get_n() == ficha2.get_n() and ficha1.get_n() != ficha3.get_n():
+			result_num = false
+		if ficha1.get_c() == ficha2.get_c() and ficha1.get_c() != ficha3.get_c():
+			result_color = false
+		if ficha1.get_s() == ficha2.get_s() and ficha1.get_s() != ficha3.get_s():
+			result_shape = false
+		if ficha1.get_f() == ficha2.get_f() and ficha1.get_f() != ficha3.get_f():
+			result_fill = false
 		
-	if ficha1.get_n() == ficha3.get_n() and ficha2.get_n() != ficha1.get_n():
-		result_num = false
-	if ficha1.get_c() == ficha3.get_c() and ficha2.get_c() != ficha1.get_c():
-		result_color = false
-	if ficha1.get_s() == ficha3.get_s() and ficha2.get_s() != ficha1.get_s():
-		result_shape = false
-	if ficha1.get_f() == ficha3.get_f() and ficha2.get_f() != ficha1.get_f():
-		result_fill = false
-		
-	result.append(result_num && result_color && result_shape && result_fill)
+		if ficha2.get_n() == ficha3.get_n() and ficha2.get_n() != ficha1.get_n():
+			result_num = false
+		if ficha2.get_c() == ficha3.get_c() and ficha2.get_c() != ficha1.get_c():
+			result_color = false
+		if ficha2.get_s() == ficha3.get_s() and ficha2.get_s() != ficha1.get_s():
+			result_shape = false
+		if ficha2.get_f() == ficha3.get_f() and ficha2.get_f() != ficha1.get_f():
+			result_fill = false
+			
+		if ficha1.get_n() == ficha3.get_n() and ficha2.get_n() != ficha1.get_n():
+			result_num = false
+		if ficha1.get_c() == ficha3.get_c() and ficha2.get_c() != ficha1.get_c():
+			result_color = false
+		if ficha1.get_s() == ficha3.get_s() and ficha2.get_s() != ficha1.get_s():
+			result_shape = false
+		if ficha1.get_f() == ficha3.get_f() and ficha2.get_f() != ficha1.get_f():
+			result_fill = false
+	
+	result.append(result_num && result_color && result_shape && result_fill && result_no_ficha)
 	result.append(result_num)
 	result.append(result_color)
 	result.append(result_shape)
@@ -457,6 +461,7 @@ func update_tablero_text():
 		get_node("bottomright/CollisionShape2D/sprite").modulate = color_apagado
 		get_node("bottomright/CollisionShape2D").disabled = true
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
+	update_cards_left_state()
 func restart():
 	clear_solver_button_container()
 	fichas.clear()
@@ -472,6 +477,7 @@ func restart():
 	#solver_params(tablero[0],tablero[1],tablero[2])
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
+	update_cards_left_state()
 	
 func _on_Button_pressed():
 	#restart()
@@ -506,6 +512,7 @@ func solution_finder():
 			button1.connect("mouse_exited",Callable(self,"_on_button_solver_exited").bind(l[0],l[1],l[2]))
 			button1.connect("button_up",Callable(self,"_on_button_solver_exited").bind(l[0],l[1],l[2]))
 			button1.set("first",1)
+			button1.set_custom_minimum_size(Vector2(0,20))
 			get_node("solver_button_container").add_child(button1)			
 	print(winners)
 	get_node("helper/solutions_label").set_text(winners_label_text)
@@ -518,7 +525,7 @@ func solution_finder_simple():
 	for l in combs:
 		var resul = solver_params(tablero[l[0]],tablero[l[1]],tablero[l[2]])
 		if resul[0]:
-			exist_solution = true	
+			exist_solution = true
 	return exist_solution
 	
 func _on_button_finder_pressed():
@@ -591,6 +598,7 @@ func reset_tablero():
 	#solver_params(tablero[0],tablero[1],tablero[2])
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
+	update_cards_left_state()
 
 # Timer function to check how much time passed until the users end the panel
 # TODO: A pausing feature for when game ends/ or when using the how to play button
@@ -645,4 +653,19 @@ func _on_close_help_button_pressed():
 	pause_ends = 0
 	pause_starts = 0
 	get_node("how_to_play_dialog").hide()
+	
+func update_cards_left_state():
+	var num_fichas_left = fichas.size()
+	var text = "Cards\nLeft: " + str(fichas.size())
+	get_node("CardsLeftButton/CardsLeftButtonText").set_text(text)
+	if (num_fichas_left < (MAX_FICHAS/2)):
+		var new_img = load("res://img/cards_left_states/half.png")
+		get_node("CardsLeftButton").set_normal_texture(new_img)
+	if (num_fichas_left < (MAX_FICHAS/3)):
+		var new_img = load("res://img/cards_left_states/single.png")
+		get_node("CardsLeftButton").set_normal_texture(new_img)
+	if (num_fichas_left < 1):
+		var new_img = load("res://img/cards_left_states/empty.png")
+		get_node("CardsLeftButton").set_normal_texture(new_img)
+		
 
