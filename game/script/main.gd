@@ -1,7 +1,13 @@
 extends Node2D
 
-
+######### PARAMETER SETTINGS ###########
 const MAX_FICHAS = 81
+const PUNTOS_ACIERTO = 3
+const PUNTOS_ERROR = -1
+const PUNTOS_NO_SET_CORRECTO = 6
+const PUNTOS_NO_SET_ERROR = -4
+######### PARAMETER SETTINGS ###########
+
 var fichas = []
 var tablero = []
 var num_selected = 0
@@ -481,22 +487,24 @@ func restart():
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
 	update_cards_left_state()
-	
+
+# When NO SET buttons is pressed we check if there is really no solution available
+# If the user is right and there is no solution:
+# - then another 12 cards are given	
+# - 6 points are added to user
+# If the user is wrong:
+# - 4 points are removed
 func _on_Button_pressed():
-	#restart()
-	reset_tablero()
-	var resultado = ""#= solver_params(tablero[0],tablero[1],tablero[2])
-	if resultado:
-		print("hay algo")
-	else:
-		print("nada")
-		
+	
 	var check_if_solution = solution_finder_simple()
 	if not check_if_solution:
-		print("Warning: there is no solution available")
+		print("The user is right no solution is available")
+		update_points(PUNTOS_NO_SET_CORRECTO)
+		reset_tablero()
 	else:
-		print("Ok: Solution available")
-	
+		print("Wrong: Solution available")
+		update_points(PUNTOS_NO_SET_ERROR)
+	update_points_button()
 
 
 func solution_finder():	
@@ -585,7 +593,7 @@ func _on_button_solver_exited(pos1,pos2,pos3):
 	get_node("bottomright/CollisionShape2D/sprite").modulate = Color(1,1,1)
 	
 
-	
+# This function gives another 12 new cards, and clear all other things
 func reset_tablero():
 	clear_solver_button_container()
 	#fichas.clear()
