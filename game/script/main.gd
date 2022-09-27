@@ -12,6 +12,7 @@ var sound_wrong
 var winners = []
 # We can track if the game is paused, for now only for the timer feature
 var global_pause = false
+var points = 0
 
 
 
@@ -85,6 +86,7 @@ func add_selections(n):
 		if resul[0]:
 			print("hay algo")
 			get_node("helper/solver_label").set_text("YES!!!!!!")
+			update_points(3)
 			var solved_sprite = get_node("solved1/CollisionShape2D/sprite")
 			var temp_texture = load(tablero[selections[0]].print_file_name())
 			solved_sprite.set_texture(temp_texture)
@@ -107,6 +109,7 @@ func add_selections(n):
 				
 			update_tablero_text()
 			update_label_text()
+			update_points_button()
 			sound_click.stop()
 			sound_correct.play()
 			get_node("helper/solutions_label").set_text("")
@@ -621,11 +624,11 @@ func update_timer():
 	
 	
 	var unix_time: float = Time.get_unix_time_from_system()
-	var unix_time_int: int = unix_time
+	
 	var actual_time_passed: int = (unix_time - initial_unix_time) - (pause_time)	
 	var dt: Dictionary = Time.get_datetime_dict_from_unix_time(actual_time_passed)
 	# originally the format was $s as string but using $02d will autocomplete ceroes in the left
-	var str := "Time:\n "+"%02d:%02d" % [dt.minute, dt.second]
+	var str_time := "Time:\n "+"%02d:%02d" % [dt.minute, dt.second]
 	old_minutes = minutes
 	old_seconds = seconds
 	minutes = dt.minute
@@ -634,14 +637,13 @@ func update_timer():
 	if (((minutes != old_minutes) || (seconds != old_seconds)) && not global_pause ):
 		#print(str)
 		get_node("TimerButton/TimerButtonText").clear()
-		get_node("TimerButton/TimerButtonText").add_text(str)
+		get_node("TimerButton/TimerButtonText").add_text(str_time)
 
 
 func _on_how_to_play_button_pressed():
 	global_pause = true
 	pause_starts = 0
-	pause_ends = 0
-	var unix_time: float = Time.get_unix_time_from_system()
+	pause_ends = 0	
 	pause_starts = Time.get_unix_time_from_system()
 	get_node("how_to_play_dialog").popup()
 
@@ -667,5 +669,16 @@ func update_cards_left_state():
 	if (num_fichas_left < 1):
 		var new_img = load("res://img/cards_left_states/empty.png")
 		get_node("CardsLeftButton").set_normal_texture(new_img)
+		
+func update_points(p):
+	points = points + p
+	
+func reset_points():
+	points = 0
+	
+func update_points_button():
+	var str_text = "Points:\n    " + str(points)
+	get_node("PointsButton/PointsButtonText").clear()
+	get_node("PointsButton/PointsButtonText").add_text(str_text)
 		
 

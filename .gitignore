@@ -9,3 +9,5 @@ game/.godot/editor*
 game/.godot/shader_cache
 game/.godot/editor/*
 game/.godot/uid_cache.bin
+game/.godot/editor/filesystem_cache7
+game/.godot/export/*
