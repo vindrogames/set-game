@@ -22,8 +22,6 @@ var points = 0
 var GLOBAL_COLOR_TYPE = "RGB"
 
 
-
-
 ##########################
 #    
 func _init():
@@ -492,6 +490,8 @@ func restart():
 	print(fichas.size())
 	get_node("helper/tablero_label").set_text(str(fichas.size()))
 	update_cards_left_state()
+	points = 0
+	initial_unix_time = Time.get_unix_time_from_system()
 
 # When NO SET buttons is pressed we check if there is really no solution available
 # If the user is right and there is no solution:
@@ -633,8 +633,7 @@ var pause_ends: float = 0
 var pause_time: float = 0
 	
 # Now the function itself, since we want to check how  much time passed
-func update_timer():
-	
+func update_timer():	
 	
 	var unix_time: float = Time.get_unix_time_from_system()
 	
@@ -704,25 +703,22 @@ func _on_debug_retrieve_cards_button_pressed():
 func init_fichas():
 	
 	var Fichas = load("res://script/ficha.gd")
-	var dir = Directory.new()
-	
 	var color_type = GLOBAL_COLOR_TYPE
+	var dir = DirAccess.open("res://img/" + color_type + "/")
 	
-	if dir.open("res://img/" + color_type + "/") == OK:
+	
+	
+	if 1 != 0:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
 				print("Found directory: " + file_name)
 			elif ("import" not in file_name) :
-				print(file_name[0] + file_name[2] + file_name[4] + file_name[6])
+				#print(file_name[0] + file_name[2] + file_name[4] + file_name[6])
 				fichas.append(Fichas.new(file_name[0],file_name[2],file_name[4],file_name[6],color_type,file_name))
-			file_name = dir.get_next()
-			
-			
-	
-	fichas.shuffle()
-	
+			file_name = dir.get_next()	
+	fichas.shuffle()	
 	return fichas;
 
 
@@ -731,3 +727,6 @@ func _on_debug_test_color_switch_pressed():
 		GLOBAL_COLOR_TYPE = "YGT"
 	else:
 		GLOBAL_COLOR_TYPE = "RGB"
+	
+	restart()
+

@@ -243,20 +243,20 @@ offset_bottom = 986.293
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="solver_button_container"]
-custom_minimum_size = Vector2i(0, 20)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 offset_right = 200.0
 offset_bottom = 20.0
 
 [node name="Button2" type="Button" parent="solver_button_container"]
-custom_minimum_size = Vector2i(0, 20)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 offset_top = 24.0
 offset_right = 200.0
 offset_bottom = 44.0
 
 [node name="Button3" type="Button" parent="solver_button_container"]
-custom_minimum_size = Vector2i(0, 20)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 offset_top = 48.0
 offset_right = 200.0
@@ -394,10 +394,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Retrieve 12 cards"
 
 [node name="debug_test_color_switch" type="Button" parent="."]
-offset_left = 274.805
-offset_top = 968.293
-offset_right = 438.805
-offset_bottom = 1051.29
+offset_left = 275.0
+offset_top = 968.0
+offset_right = 409.0
+offset_bottom = 1066.0
+icon = ExtResource("18_5gyom")
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]
