@@ -704,7 +704,7 @@ func init_fichas():
 	
 	var Fichas = load("res://script/ficha.gd")
 	var dir = Directory.new()
-	if dir.open("res://img/img-128x90") == OK:
+	if dir.open("res://img/RGB/") == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
