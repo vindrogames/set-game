@@ -29,6 +29,8 @@ func _init():
 	randomize()	
 	init_fichas()
 	
+	#init_fichas_beta()
+	
 func _ready():
 	
 	get_node("helper/cardlist_label").hide()
@@ -92,7 +94,7 @@ func add_selections(n):
 		if resul[0]:
 			print("hay algo")
 			get_node("helper/solver_label").set_text("YES!!!!!!")
-			update_points(3)
+			update_points(PUNTOS_ACIERTO)
 			var solved_sprite = get_node("solved1/CollisionShape2D/sprite")
 			var temp_texture = load(tablero[selections[0]].print_file_name())
 			solved_sprite.set_texture(temp_texture)
@@ -115,7 +117,7 @@ func add_selections(n):
 				
 			update_tablero_text()
 			update_label_text()
-			update_points_button()
+			
 			sound_click.stop()
 			sound_correct.play()
 			get_node("helper/solutions_label").set_text("")
@@ -132,8 +134,10 @@ func add_selections(n):
 		else:
 			print("nada")
 			get_node("helper/solver_label").set_text("NOU :-(")
+			update_points(PUNTOS_ERROR)
 			sound_wrong.play()
 		num_selected = 0
+		update_points_button()
 		
 		selections.clear()
 		clear_buttons()
@@ -166,7 +170,7 @@ func clear_buttons():
 	if tablero[11]:
 		get_node("bottomright").clear_button()
 
-func init_fichas():
+func init_fichas_test():
 	
 	var Fichas = load("res://script/ficha.gd")
 	fichas.append(Fichas.new("1","G","D","B"))
@@ -690,3 +694,29 @@ func update_points_button():
 	get_node("PointsButton/PointsButtonText").add_text(str_text)
 		
 
+
+
+func _on_debug_retrieve_cards_button_pressed():
+	reset_tablero()
+	update_points_button()
+
+func init_fichas():
+	
+	var Fichas = load("res://script/ficha.gd")
+	var dir = Directory.new()
+	if dir.open("res://img/img-128x90") == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory: " + file_name)
+			elif ("import" not in file_name) :
+				print(file_name[0] + file_name[2] + file_name[4] + file_name[6])
+				fichas.append(Fichas.new(file_name[0],file_name[2],file_name[4],file_name[6]))
+			file_name = dir.get_next()
+			
+			
+	
+	fichas.shuffle()
+	
+	return fichas;
