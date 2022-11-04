@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3]
 
-[ext_resource path="res://img/smoke.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" path="res://img/smoke.png" id="1"]
+
 
 [sub_resource type="Gradient" id=1]
 colors = PackedColorArray( 0.160784, 0.0156863, 0.4, 1, 0.513726, 0.529412, 0.678431, 1 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c7b0iuuqwoaye"]
+[gd_scene load_steps=24 format=3 uid="uid://bjv38tplcwcaw"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://byihdw4aai81o" path="res://snd/click.wav" id="2"]
@@ -393,8 +393,15 @@ offset_bottom = 913.293
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Retrieve 12 cards"
 
+[node name="debug_test_color_switch" type="Button" parent="."]
+offset_left = 274.805
+offset_top = 968.293
+offset_right = 438.805
+offset_bottom = 1051.29
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="button_finder" to="." method="_on_button_finder_pressed"]
 [connection signal="pressed" from="how_to_play_dialog/close_help_button" to="." method="_on_close_help_button_pressed"]
 [connection signal="pressed" from="HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="DebugRetrieveCardsButton" to="." method="_on_debug_retrieve_cards_button_pressed"]
+[connection signal="pressed" from="debug_test_color_switch" to="." method="_on_debug_test_color_switch_pressed"]

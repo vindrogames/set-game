@@ -19,6 +19,7 @@ var winners = []
 # We can track if the game is paused, for now only for the timer feature
 var global_pause = false
 var points = 0
+var GLOBAL_COLOR_TYPE = "RGB"
 
 
 
@@ -704,7 +705,10 @@ func init_fichas():
 	
 	var Fichas = load("res://script/ficha.gd")
 	var dir = Directory.new()
-	if dir.open("res://img/RGB/") == OK:
+	
+	var color_type = GLOBAL_COLOR_TYPE
+	
+	if dir.open("res://img/" + color_type + "/") == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -712,7 +716,7 @@ func init_fichas():
 				print("Found directory: " + file_name)
 			elif ("import" not in file_name) :
 				print(file_name[0] + file_name[2] + file_name[4] + file_name[6])
-				fichas.append(Fichas.new(file_name[0],file_name[2],file_name[4],file_name[6]))
+				fichas.append(Fichas.new(file_name[0],file_name[2],file_name[4],file_name[6],color_type,file_name))
 			file_name = dir.get_next()
 			
 			
@@ -720,3 +724,10 @@ func init_fichas():
 	fichas.shuffle()
 	
 	return fichas;
+
+
+func _on_debug_test_color_switch_pressed():
+	if GLOBAL_COLOR_TYPE == "RGB":
+		GLOBAL_COLOR_TYPE = "YGT"
+	else:
+		GLOBAL_COLOR_TYPE = "RGB"

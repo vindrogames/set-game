@@ -4,16 +4,22 @@ var number
 var color
 var shape
 var fill
+var color_type
+var file_name
 
-func _init(n,c,s,f):
+func _init(n,c,s,f,ct,fn):
 	number = n
 	color = c
 	shape = s
 	fill = f
+	color_type = ct
+	file_name = fn
+	
+
 	
 func print_file_name():
-	#TODO: Refactor
-	var final_string = "res://img/RGB/" + number+ "-"+color+"-"+shape+"-"+fill + ".png"
+	
+	var final_string = "res://img/" + color_type +"/" + file_name
 	return final_string
 	
 func print_name_simple():
@@ -28,3 +34,6 @@ func get_s():
 	return shape
 func get_f():
 	return fill
+	
+func set_c(c):
+	color = c
