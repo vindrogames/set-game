@@ -3,8 +3,8 @@ debug.keystore
 
 # Godot-specific ignores
 .import/
-export.cfg
-export_presets.cfg
+*export.cfg
+*export_presets.cfg
 game/.godot/editor*
 game/.godot/shader_cache
 game/.godot/editor/*
@@ -12,3 +12,21 @@ game/.godot/uid_cache.bin
 game/.godot/editor/filesystem_cache7
 game/.godot/export/*
 game/.godot/exported/*
+game/.godot/export_credentials.cfg
+game/.godot/global_script_class_cache.cfg
+
+# Godot 4+ specific ignores
+# .godot/
+#
+# # Godot-specific ignores
+.import/
+# export.cfg
+# export_presets.cfg
+#
+# # Imported translations (automatically generated from CSV files)
+*.translation
+#
+# # Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json

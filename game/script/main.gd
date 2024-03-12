@@ -169,6 +169,9 @@ func clear_buttons():
 	if tablero[11]:
 		get_node("bottomright").clear_button()
 
+
+### NO LONGER USED
+"""
 func init_fichas_test():
 	
 	var Fichas = load("res://script/ficha.gd")
@@ -275,7 +278,7 @@ func init_fichas_test():
 	
 	return fichas;
 
-
+"""
 # Solver al que se le pasan los parametros
 func solver_params(t1, t2, t3):
 	
@@ -301,8 +304,10 @@ func solver_params(t1, t2, t3):
 		# If there is any ficha  missing then for sure we cannot proceed
 	else:
 		if ficha1.get_n() == ficha2.get_n() and ficha1.get_n() != ficha3.get_n():
+			# The number is wrong
 			result_num = false
 		if ficha1.get_c() == ficha2.get_c() and ficha1.get_c() != ficha3.get_c():
+			# The number is wrong
 			result_color = false
 		if ficha1.get_s() == ficha2.get_s() and ficha1.get_s() != ficha3.get_s():
 			result_shape = false
@@ -727,6 +732,6 @@ func _on_debug_test_color_switch_pressed():
 		GLOBAL_COLOR_TYPE = "YGT"
 	else:
 		GLOBAL_COLOR_TYPE = "RGB"
-	
+	# we do restart because 
 	restart()
 

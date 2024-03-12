@@ -144,14 +144,15 @@ offset_left = 477.805
 offset_top = 782.293
 offset_right = 686.805
 offset_bottom = 837.293
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.94902, 0.94902, 0.94902, 1)
+theme_override_colors/icon_normal_color = Color(0.737255, 0.0627451, 0.286275, 1)
 text = "No SET"
 
 [node name="button_finder" type="Button" parent="."]
-offset_left = 278.805
-offset_top = 753.293
-offset_right = 432.805
-offset_bottom = 807.293
+offset_left = 288.805
+offset_top = 897.293
+offset_right = 442.805
+offset_bottom = 951.293
 text = "Trampas Temporal"
 
 [node name="solved1" type="Area2D" parent="."]
@@ -237,30 +238,22 @@ stream = ExtResource("2")
 
 [node name="solver_button_container" type="VBoxContainer" parent="."]
 offset_left = 262.805
-offset_top = 886.293
+offset_top = 964.293
 offset_right = 462.805
-offset_bottom = 986.293
+offset_bottom = 1064.29
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="solver_button_container"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-offset_right = 200.0
-offset_bottom = 20.0
 
 [node name="Button2" type="Button" parent="solver_button_container"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-offset_top = 24.0
-offset_right = 200.0
-offset_bottom = 44.0
 
 [node name="Button3" type="Button" parent="solver_button_container"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-offset_top = 48.0
-offset_right = 200.0
-offset_bottom = 68.0
 
 [node name="how_to_play_dialog" type="Popup" parent="."]
 size = Vector2i(720, 1080)
@@ -322,7 +315,7 @@ offset_bottom = 91.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("21_kb2xh")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 21
 text = "How to Play"
 
 [node name="TimerButton" type="TextureButton" parent="."]
@@ -340,7 +333,7 @@ offset_bottom = 91.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("21_kb2xh")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 21
 text = "Time:
 00:00"
 
@@ -361,7 +354,7 @@ offset_bottom = 103.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("21_kb2xh")
-theme_override_font_sizes/normal_font_size = 23
+theme_override_font_sizes/normal_font_size = 21
 text = "Cards
 Left: 81"
 
@@ -380,7 +373,7 @@ offset_bottom = 91.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("21_kb2xh")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 21
 text = "Points:
   0"
 scroll_active = false
@@ -394,10 +387,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Retrieve 12 cards"
 
 [node name="debug_test_color_switch" type="Button" parent="."]
-offset_left = 275.0
-offset_top = 968.0
-offset_right = 409.0
-offset_bottom = 1066.0
+offset_left = 77.8049
+offset_top = 995.293
+offset_right = 211.805
+offset_bottom = 1093.29
 icon = ExtResource("18_5gyom")
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
