@@ -10,23 +10,17 @@ config_version=5
 
 [application]
 
-config/name="set"
-run/main_scene="res://scene/main.tscn"
-config/features=PackedStringArray("4.2")
-config/icon="res://icon.png"
+config/name="set-game-new"
+run/main_scene="res://scenes/root.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=720
 window/size/viewport_height=1080
-window/stretch/mode="viewport"
-window/size/width=540
-window/size/height=960
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-quality/driver/driver_name="GLES2"
-vram_compression/import_etc=true
-environment/default_environment="res://default_env.tres"
+renderer/rendering_method.mobile="gl_compatibility"

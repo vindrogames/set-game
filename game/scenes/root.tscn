@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1dfla53q1w4k"]
+
+[ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
+
+[node name="root" type="Node2D"]
+
+[node name="tablero-cards" type="Node2D" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="tablero-cards"]
+offset_left = 63.0
+offset_top = 84.0
+offset_right = 203.0
+offset_bottom = 184.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/TextureButton"]
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("1_i1arj")
