@@ -1,20 +1,451 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=21 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
+[ext_resource type="Texture2D" uid="uid://ex7eijgt4r8w" path="res://img/cards/1-R-D-B.png" id="1_x5h8x"]
+[ext_resource type="Texture2D" uid="uid://bkpr7njus7mhf" path="res://img/cards/set-deck-5-good.png" id="2_ayyyq"]
+[ext_resource type="Texture2D" uid="uid://ri51yk7h8sml" path="res://img/cards/1-B-S-F.png" id="2_fpnos"]
+[ext_resource type="Texture2D" uid="uid://bqof4kna7tk7w" path="res://img/cards/3-G-R-F.png" id="3_7arh7"]
+[ext_resource type="Texture2D" uid="uid://btwrl747is12d" path="res://img/cards/3-R-R-F.png" id="5_jidr8"]
+[ext_resource type="Texture2D" uid="uid://bk6vhplb81p28" path="res://img/cards/2-B-D-B.png" id="6_4vea4"]
+[ext_resource type="Texture2D" uid="uid://cg5sn3ekb07fe" path="res://img/cards/1-G-D-L.png" id="7_dclp0"]
+[ext_resource type="Texture2D" uid="uid://mg37jb2qgt23" path="res://img/cards/1-G-S-F.png" id="8_l05dc"]
+[ext_resource type="Texture2D" uid="uid://dx2mag6otg2fg" path="res://img/cards/3-B-D-F.png" id="9_syejh"]
+[ext_resource type="Texture2D" uid="uid://cwwrc8jy4uhgq" path="res://img/cards/2-R-S-L.png" id="10_jqpuc"]
+[ext_resource type="Texture2D" uid="uid://jt2ser8h8182" path="res://img/cards/1-R-S-F.png" id="11_dplak"]
+[ext_resource type="Texture2D" uid="uid://da0jx0bwr84xc" path="res://img/cards/2-G-R-L.png" id="12_30vay"]
+[ext_resource type="FontFile" path="res://Xolonium.tres" id="14_npp1i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rq118"]
+bg_color = Color(0.988235, 0.862745, 0.298039, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybooy"]
+bg_color = Color(0.988235, 0.862745, 0.298039, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yulmg"]
+bg_color = Color(0.121569, 0.156863, 0.2, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edc1s"]
+content_margin_top = 21.0
+content_margin_bottom = 21.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqra2"]
+bg_color = Color(1, 1, 1, 1)
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5r2d"]
+bg_color = Color(1, 1, 1, 1)
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
 
 [node name="root" type="Node2D"]
 
+[node name="top-bar" type="Node2D" parent="."]
+
+[node name="game-time" type="Label" parent="top-bar"]
+auto_translate_mode = 1
+offset_left = 364.0
+offset_top = 14.0
+offset_right = 546.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rq118")
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="instructions-btn" type="Button" parent="top-bar"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 14.0
+offset_right = 224.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
+text = "instructions"
+
 [node name="tablero-cards" type="Node2D" parent="."]
+position = Vector2(0, 56)
 
-[node name="TextureButton" type="TextureButton" parent="tablero-cards"]
-offset_left = 63.0
-offset_top = 84.0
-offset_right = 203.0
-offset_bottom = 184.0
+[node name="1-1" type="TextureButton" parent="tablero-cards"]
+offset_left = 42.0
+offset_top = 42.0
+offset_right = 182.0
+offset_bottom = 142.0
 metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="tablero-cards/TextureButton"]
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/1-1"]
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("1_x5h8x")
+
+[node name="1-2" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 224.0
+offset_top = 42.0
+offset_right = 364.0
+offset_bottom = 142.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/1-2"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("2_fpnos")
+
+[node name="1-3" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 406.0
+offset_top = 42.0
+offset_right = 546.0
+offset_bottom = 142.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/1-3"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("3_7arh7")
+
+[node name="2-1" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 170.0
+offset_right = 182.0
+offset_bottom = 270.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/2-1"]
+auto_translate_mode = 1
 layout_mode = 0
 offset_right = 140.0
 offset_bottom = 100.0
 texture = ExtResource("1_i1arj")
+
+[node name="2-2" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 224.0
+offset_top = 170.0
+offset_right = 364.0
+offset_bottom = 270.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/2-2"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("5_jidr8")
+
+[node name="2-3" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 406.0
+offset_top = 170.0
+offset_right = 546.0
+offset_bottom = 270.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/2-3"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("6_4vea4")
+
+[node name="3-1" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 298.0
+offset_right = 182.0
+offset_bottom = 398.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/3-1"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("7_dclp0")
+
+[node name="3-2" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 224.0
+offset_top = 298.0
+offset_right = 364.0
+offset_bottom = 398.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/3-2"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("8_l05dc")
+
+[node name="3-3" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 406.0
+offset_top = 298.0
+offset_right = 546.0
+offset_bottom = 398.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/3-3"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("9_syejh")
+
+[node name="4-1" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 426.0
+offset_right = 182.0
+offset_bottom = 526.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/4-1"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("10_jqpuc")
+
+[node name="4-2" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 224.0
+offset_top = 426.0
+offset_right = 364.0
+offset_bottom = 526.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/4-2"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("11_dplak")
+
+[node name="4-3" type="TextureButton" parent="tablero-cards"]
+auto_translate_mode = 1
+offset_left = 406.0
+offset_top = 426.0
+offset_right = 546.0
+offset_bottom = 526.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="tablero-cards/4-3"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 100.0
+texture = ExtResource("12_30vay")
+
+[node name="tablero-info" type="Node2D" parent="."]
+position = Vector2(0, 582)
+
+[node name="set-deck" type="TextureRect" parent="tablero-info"]
+offset_left = 224.0
+offset_top = 42.0
+offset_right = 364.0
+offset_bottom = 142.0
+texture = ExtResource("2_ayyyq")
+
+[node name="set-result" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 42.0
+offset_right = 182.0
+offset_bottom = 143.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_npp1i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "¡You found a SET!
+That's not a SET."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="no-set-btn" type="Button" parent="tablero-info"]
+offset_left = 406.0
+offset_top = 42.0
+offset_right = 546.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
+text = "no set"
+
+[node name="hint-btn" type="Button" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 406.0
+offset_top = 100.0
+offset_right = 546.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
+text = "hint"
+
+[node name="res-num" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 42.0
+offset_top = 164.0
+offset_right = 105.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "number
+NO SET"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 2
+
+[node name="res-color" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 119.0
+offset_top = 164.0
+offset_right = 182.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "color
+SET"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 2
+
+[node name="res-shape" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 196.0
+offset_top = 164.0
+offset_right = 259.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "shape
+SET"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 2
+
+[node name="res-fill" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 273.0
+offset_top = 164.0
+offset_right = 336.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "fill
+NO SET"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 2
+
+[node name="stats-container" type="Label" parent="tablero-info"]
+auto_translate_mode = 1
+offset_left = 364.0
+offset_top = 164.0
+offset_right = 546.0
+offset_bottom = 265.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="stat-cards" type="Label" parent="tablero-info/stats-container"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_top = 7.0
+offset_right = 60.666
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_tqra2")
+text = "cards
+42"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="res-fill" type="Label" parent="tablero-info/stats-container"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 61.0
+offset_top = 7.0
+offset_right = 121.666
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_n5r2d")
+text = "points
+42"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="res-fill2" type="Label" parent="tablero-info/stats-container"]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 122.0
+offset_top = 7.0
+offset_right = 182.666
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
+text = "hints
+3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
