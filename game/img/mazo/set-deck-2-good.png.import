@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhlpi74h77upc"
-path="res://.godot/imported/set-deck-1-good.png-5123437f6ef36e212bc539f7aa8fa211.ctex"
+uid="uid://dx0ehxsxk4jb"
+path="res://.godot/imported/set-deck-2-good.png-e8c19ff8b25cd09cab0b443bf455d4aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/cards/set-deck-1-good.png"
-dest_files=["res://.godot/imported/set-deck-1-good.png-5123437f6ef36e212bc539f7aa8fa211.ctex"]
+source_file="res://img/mazo/set-deck-2-good.png"
+dest_files=["res://.godot/imported/set-deck-2-good.png-e8c19ff8b25cd09cab0b443bf455d4aa.ctex"]
 
 [params]
 

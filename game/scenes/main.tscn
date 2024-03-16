@@ -1,19 +1,31 @@
-[gd_scene load_steps=21 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=33 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
 [ext_resource type="Texture2D" uid="uid://ex7eijgt4r8w" path="res://img/cards/1-R-D-B.png" id="1_x5h8x"]
-[ext_resource type="Texture2D" uid="uid://bkpr7njus7mhf" path="res://img/cards/set-deck-5-good.png" id="2_ayyyq"]
+[ext_resource type="Texture2D" uid="uid://bkpr7njus7mhf" path="res://img/mazo/set-deck-5-good.png" id="2_ayyyq"]
 [ext_resource type="Texture2D" uid="uid://ri51yk7h8sml" path="res://img/cards/1-B-S-F.png" id="2_fpnos"]
+[ext_resource type="Script" path="res://scripts/1-1.gd" id="2_ru0mg"]
 [ext_resource type="Texture2D" uid="uid://bqof4kna7tk7w" path="res://img/cards/3-G-R-F.png" id="3_7arh7"]
+[ext_resource type="Script" path="res://scripts/1-2.gd" id="4_pjle7"]
 [ext_resource type="Texture2D" uid="uid://btwrl747is12d" path="res://img/cards/3-R-R-F.png" id="5_jidr8"]
 [ext_resource type="Texture2D" uid="uid://bk6vhplb81p28" path="res://img/cards/2-B-D-B.png" id="6_4vea4"]
+[ext_resource type="Script" path="res://scripts/1-3.gd" id="6_qwhgx"]
 [ext_resource type="Texture2D" uid="uid://cg5sn3ekb07fe" path="res://img/cards/1-G-D-L.png" id="7_dclp0"]
 [ext_resource type="Texture2D" uid="uid://mg37jb2qgt23" path="res://img/cards/1-G-S-F.png" id="8_l05dc"]
+[ext_resource type="Script" path="res://scripts/2-1.gd" id="8_qavnw"]
 [ext_resource type="Texture2D" uid="uid://dx2mag6otg2fg" path="res://img/cards/3-B-D-F.png" id="9_syejh"]
 [ext_resource type="Texture2D" uid="uid://cwwrc8jy4uhgq" path="res://img/cards/2-R-S-L.png" id="10_jqpuc"]
+[ext_resource type="Script" path="res://scripts/2-2.gd" id="10_m7awx"]
 [ext_resource type="Texture2D" uid="uid://jt2ser8h8182" path="res://img/cards/1-R-S-F.png" id="11_dplak"]
 [ext_resource type="Texture2D" uid="uid://da0jx0bwr84xc" path="res://img/cards/2-G-R-L.png" id="12_30vay"]
-[ext_resource type="FontFile" path="res://Xolonium.tres" id="14_npp1i"]
+[ext_resource type="Script" path="res://scripts/2-3.gd" id="12_sxdm7"]
+[ext_resource type="Script" path="res://scripts/3-1.gd" id="14_5vb23"]
+[ext_resource type="Script" path="res://scripts/3-2.gd" id="16_nrtyg"]
+[ext_resource type="Script" path="res://scripts/3-3.gd" id="18_w7wdn"]
+[ext_resource type="Script" path="res://scripts/4-1.gd" id="20_dbia2"]
+[ext_resource type="Script" path="res://scripts/4-2.gd" id="22_eas3q"]
+[ext_resource type="Script" path="res://scripts/4-3.gd" id="24_k2xnc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rq118"]
 bg_color = Color(0.988235, 0.862745, 0.298039, 1)
@@ -62,7 +74,8 @@ bg_color = Color(1, 1, 1, 1)
 border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="root" type="Node2D"]
+[node name="main" type="Node2D"]
+script = ExtResource("1_lbu14")
 
 [node name="top-bar" type="Node2D" parent="."]
 
@@ -99,6 +112,7 @@ offset_left = 42.0
 offset_top = 42.0
 offset_right = 182.0
 offset_bottom = 142.0
+script = ExtResource("2_ru0mg")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -114,6 +128,7 @@ offset_left = 224.0
 offset_top = 42.0
 offset_right = 364.0
 offset_bottom = 142.0
+script = ExtResource("4_pjle7")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -130,6 +145,7 @@ offset_left = 406.0
 offset_top = 42.0
 offset_right = 546.0
 offset_bottom = 142.0
+script = ExtResource("6_qwhgx")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -146,6 +162,7 @@ offset_left = 42.0
 offset_top = 170.0
 offset_right = 182.0
 offset_bottom = 270.0
+script = ExtResource("8_qavnw")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -162,6 +179,7 @@ offset_left = 224.0
 offset_top = 170.0
 offset_right = 364.0
 offset_bottom = 270.0
+script = ExtResource("10_m7awx")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -178,6 +196,7 @@ offset_left = 406.0
 offset_top = 170.0
 offset_right = 546.0
 offset_bottom = 270.0
+script = ExtResource("12_sxdm7")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -194,6 +213,7 @@ offset_left = 42.0
 offset_top = 298.0
 offset_right = 182.0
 offset_bottom = 398.0
+script = ExtResource("14_5vb23")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -210,6 +230,7 @@ offset_left = 224.0
 offset_top = 298.0
 offset_right = 364.0
 offset_bottom = 398.0
+script = ExtResource("16_nrtyg")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -226,6 +247,7 @@ offset_left = 406.0
 offset_top = 298.0
 offset_right = 546.0
 offset_bottom = 398.0
+script = ExtResource("18_w7wdn")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -242,6 +264,7 @@ offset_left = 42.0
 offset_top = 426.0
 offset_right = 182.0
 offset_bottom = 526.0
+script = ExtResource("20_dbia2")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -258,6 +281,7 @@ offset_left = 224.0
 offset_top = 426.0
 offset_right = 364.0
 offset_bottom = 526.0
+script = ExtResource("22_eas3q")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -274,6 +298,7 @@ offset_left = 406.0
 offset_top = 426.0
 offset_right = 546.0
 offset_bottom = 526.0
+script = ExtResource("24_k2xnc")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -301,7 +326,6 @@ offset_top = 42.0
 offset_right = 182.0
 offset_bottom = 143.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("14_npp1i")
 theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
 text = "¡You found a SET!
 That's not a SET."
@@ -449,3 +473,33 @@ text = "hints
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="trampas" type="Node2D" parent="."]
+position = Vector2(227, 8)
+
+[node name="trampas_button" type="Button" parent="trampas"]
+offset_left = 6.0
+offset_top = -9.0
+offset_right = 129.0
+offset_bottom = 22.0
+text = "Trampas"
+
+[node name="trampas_container" type="VBoxContainer" parent="trampas"]
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 125.0
+offset_bottom = 88.0
+
+[connection signal="pressed" from="tablero-cards/1-1" to="tablero-cards/1-1" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/1-2" to="tablero-cards/1-2" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/1-3" to="tablero-cards/1-3" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/2-1" to="tablero-cards/2-1" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/2-2" to="tablero-cards/2-2" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/2-3" to="tablero-cards/2-3" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/3-1" to="tablero-cards/3-1" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/3-2" to="tablero-cards/3-2" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/3-3" to="tablero-cards/3-3" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/4-1" to="tablero-cards/4-1" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/4-2" to="tablero-cards/4-2" method="_on_pressed"]
+[connection signal="pressed" from="tablero-cards/4-3" to="tablero-cards/4-3" method="_on_pressed"]
+[connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]
