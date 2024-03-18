@@ -7,8 +7,8 @@ const PUNTOS_NO_SET_CORRECTO = 6
 const PUNTOS_NO_SET_ERROR = -4
 ######### PARAMETER SETTINGS ###########
 
-@export var cards = []
-@export var tablero = []
+var cards = []
+var tablero = []
 var num_selected = 0
 var selections = []
 var sound_click
@@ -20,6 +20,8 @@ var global_pause = false
 var points = 0
 
 const Cards = preload("res://scripts/card.gd")
+var ins_scene = preload("res://scenes/instructions.tscn")
+var instance
 
 func _init() -> void:
 	init_cards()
@@ -236,12 +238,16 @@ func update_tablero():
 	#update_cards_left_state()
 	var number_cards_deck = len(cards)
 	if number_cards_deck > 66:
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-5-good.png")
+		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
+		get_node("tablero-info/set-deck").set_texture(tmp_texture)
 	elif number_cards_deck > 51:
+		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
 		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-4-good.png")
 	elif number_cards_deck > 36:
+		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
 		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-3-good.png")
 	elif number_cards_deck > 21:
+		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
 		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-2-good.png")
 	elif number_cards_deck > 6:
 		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-1-good.png")
@@ -410,7 +416,9 @@ func _on_button_solver_exited(pos1,pos2,pos3):
 	get_node("tablero-cards/4-3/TextureRect").modulate = Color(1,1,1)
 
 
-func _on_instructionsbtn_pressed() -> void:
-	var scene = load("res://scenes/instructions.tscn")
-	var instance = scene.instantiate()
-	add_child(instance)
+func _on_instructionsbtn_pressed() -> void:	
+	instance = ins_scene.instantiate()
+	get_tree().get_root().add_child(instance)
+
+func remove_ins():
+	get_tree().get_root().remove_child(instance)

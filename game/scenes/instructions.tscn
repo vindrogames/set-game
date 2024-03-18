@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://xu1b7nsow5n5"]
+
+[ext_resource type="Script" path="res://scripts/instructions.gd" id="1_q4ld0"]
+
+[node name="Instructions" type="Node2D"]
+script = ExtResource("1_q4ld0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 437.0
+offset_bottom = 602.0
+text = "temporal
+dfsadfsaf
+fdsadfsafsa
+
+
+sdfadfsafdsa
+
+fdsafdasfdasdsa"
+
+[node name="ins_close_button" type="Button" parent="."]
+offset_left = 212.0
+offset_top = 644.0
+offset_right = 363.0
+offset_bottom = 717.0
+text = "CLOSE"
+
+[connection signal="pressed" from="ins_close_button" to="." method="_on_ins_close_button_pressed"]
