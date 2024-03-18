@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=36 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
@@ -26,6 +26,9 @@
 [ext_resource type="Script" path="res://scripts/4-1.gd" id="20_dbia2"]
 [ext_resource type="Script" path="res://scripts/4-2.gd" id="22_eas3q"]
 [ext_resource type="Script" path="res://scripts/4-3.gd" id="24_k2xnc"]
+[ext_resource type="AudioStream" uid="uid://c65sxbgn6u3pu" path="res://sound/select.wav" id="27_jviby"]
+[ext_resource type="AudioStream" uid="uid://dkcqpemi1mysm" path="res://sound/right.wav" id="28_uqk88"]
+[ext_resource type="AudioStream" uid="uid://coidtnrc8tp7k" path="res://sound/wrong.wav" id="29_src67"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rq118"]
 bg_color = Color(0.988235, 0.862745, 0.298039, 1)
@@ -487,6 +490,17 @@ offset_left = 6.0
 offset_top = 24.0
 offset_right = 125.0
 offset_bottom = 88.0
+
+[node name="sound" type="Node" parent="."]
+
+[node name="wrong" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource("29_src67")
+
+[node name="right" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource("28_uqk88")
+
+[node name="select" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource("27_jviby")
 
 [connection signal="pressed" from="top-bar/instructions-btn" to="." method="_on_instructionsbtn_pressed"]
 [connection signal="pressed" from="tablero-cards/1-1" to="tablero-cards/1-1" method="_on_pressed"]

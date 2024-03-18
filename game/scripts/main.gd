@@ -11,8 +11,8 @@ var cards = []
 var tablero = []
 var num_selected = 0
 var selections = []
-var sound_click
-var sound_correct
+var sound_select
+var sound_right
 var sound_wrong
 var winners = []
 # We can track if the game is paused, for now only for the timer feature
@@ -52,6 +52,14 @@ func _ready() -> void:
 		print("Ok: Solution available")
 	update_tablero()
 	
+	#### LOAD SOUNDS ####
+	
+	sound_select = get_node("sound/select")
+	sound_right = get_node("sound/right")
+	sound_wrong = get_node("sound/wrong")
+	
+func _process(_delta: float) -> void:
+	update_timer()
 ######## NOTES ########
 #
 #	This is the card stack initializer, it will go through the image directory and will take from the file name
@@ -66,7 +74,6 @@ func init_cards():
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			var skip = false
 			if dir.current_is_dir():
 				# if we find a directory inside the folder we do not want to do anything with the cards
 				print("Found directory: " + file_name)
@@ -237,22 +244,21 @@ func update_tablero():
 	#get_node("helper/tablero_label").set_text(str(fichas.size()))
 	#update_cards_left_state()
 	var number_cards_deck = len(cards)
+	get_node("tablero-info/stats-container/stat-cards").set_text(str(number_cards_deck))
+	var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
 	if number_cards_deck > 66:
-		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
-		get_node("tablero-info/set-deck").set_texture(tmp_texture)
+		tmp_texture = load("res://img/mazo/set-deck-5-good.png")		
 	elif number_cards_deck > 51:
-		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-4-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-4-good.png")		
 	elif number_cards_deck > 36:
-		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-3-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-3-good.png")		
 	elif number_cards_deck > 21:
-		var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-2-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-2-good.png")		
 	elif number_cards_deck > 6:
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-1-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
 	elif number_cards_deck == 0:
-		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-1-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
+	get_node("tablero-info/set-deck").set_texture(tmp_texture)
 func get_num_selected():
 	return num_selected
 
@@ -262,12 +268,15 @@ func add_num_selected():
 func add_selections(n):
 	selections.append(n)
 	add_num_selected()
+	sound_select.play()
 	# When the user select the third card then we check if the selection is valid
 	if num_selected > 2:
 		var resul = solver_params(tablero[selections[0]],tablero[selections[1]],tablero[selections[2]])
 		if resul[0]:
 			print("hay algo")
 			get_node("tablero-info/set-result").set_text("¡You found a SET!")
+			sound_select.stop()
+			sound_right.play()
 			#update_points(PUNTOS_ACIERTO)
 			"""
 			var solved_sprite = get_node("solved1/CollisionShape2D/sprite")
@@ -304,6 +313,8 @@ func add_selections(n):
 		else:
 			print("nada")
 			get_node("tablero-info/set-result").set_text("That's not a SET")
+			sound_select.stop()
+			sound_wrong.play()
 			#update_points(PUNTOS_ERROR)
 
 		num_selected = 0
@@ -401,7 +412,7 @@ func _on_button_solver_entered(pos1,pos2,pos3):
 	if pos1 == 11 or pos2 == 11 or pos3 == 11:
 		get_node("tablero-cards/4-3/TextureRect").modulate = Color(0.25,0.25,0.25)
 	
-func _on_button_solver_exited(pos1,pos2,pos3):
+func _on_button_solver_exited(_pos1,_pos2,_pos3):
 	get_node("tablero-cards/1-1/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/1-2/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/1-3/TextureRect").modulate = Color(1,1,1)
@@ -415,10 +426,52 @@ func _on_button_solver_exited(pos1,pos2,pos3):
 	get_node("tablero-cards/4-2/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/4-3/TextureRect").modulate = Color(1,1,1)
 
-
-func _on_instructionsbtn_pressed() -> void:	
+func _on_instructionsbtn_pressed() -> void:
+	global_pause = true
+	pause_starts = 0
+	pause_ends = 0	
+	pause_starts = Time.get_unix_time_from_system()
 	instance = ins_scene.instantiate()
 	get_tree().get_root().add_child(instance)
 
 func remove_ins():
+	global_pause = false
+	pause_ends = Time.get_unix_time_from_system()
+	pause_time = pause_time + pause_ends - pause_starts
+	pause_ends = 0
+	pause_starts = 0
 	get_tree().get_root().remove_child(instance)
+	
+# Timer function to check how much time passed until the users end the panel
+# TODO: A pausing feature for when game ends/ or when using the how to play button
+# we track if only 1 second or 1 minute passed to update the text on those intervals
+var minutes = 0
+var old_minutes = 0
+var seconds = 0
+var old_seconds = 0
+
+# This will get the starting unix time in the format 232322323223
+var initial_unix_time: float = Time.get_unix_time_from_system()
+var initial_unix_time_int: int = initial_unix_time
+
+var pause_starts: float = 0
+var pause_ends: float = 0
+var pause_time: float = 0
+	
+# Now the function itself, since we want to check how  much time passed
+func update_timer():	
+	
+	var unix_time: float = Time.get_unix_time_from_system()
+	
+	var actual_time_passed: int = (unix_time - initial_unix_time) - (pause_time)	
+	var dt: Dictionary = Time.get_datetime_dict_from_unix_time(actual_time_passed)
+	# originally the format was $s as string but using $02d will autocomplete ceroes in the left
+	var str_time := "%02d:%02d" % [dt.minute, dt.second]
+	old_minutes = minutes
+	old_seconds = seconds
+	minutes = dt.minute
+	seconds = dt.second
+	#this If will make sure to only update every second or every minute
+	if (((minutes != old_minutes) || (seconds != old_seconds)) && not global_pause ):
+		#print(str)
+		get_node("top-bar/game-time").set_text(str_time)
