@@ -19,7 +19,9 @@ func _on_pressed() -> void:
 			selected = true
 			get_node("TextureRect").modulate = Color(1, 1, 1, 0.5)
 			mainNode.add_selections(0)
-
+	# TODO: make the 
+	else:
+		mainNode.remove_selections(0)
 func clear_button():
 	selected = false
 	get_node("TextureRect").modulate = Color(1, 1, 1, 1)

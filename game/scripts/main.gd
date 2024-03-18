@@ -154,9 +154,9 @@ func solver_params(t1, t2, t3):
 	return result
 	
 func update_tablero():	
-	var color_apagado = Color(0,0,0,0.5)
+	
 ############ NOTES #############
-# This array "tablero" has 12 slots for cards                            
+# This array "tablero" mantains the logical state of the board and has 12 slots for cards                            
 # ┌───────────────────────────────────────┐     
 # │   x   x   x   x   x   x   x   x   x   │     
 # │ 0 x 1 x 2 x 3 x 4 x 5 x 6 x 7 x 8 x 9 │     
@@ -171,8 +171,9 @@ func update_tablero():
 #        └───┘  └───┘  └───┘                                                           
 #   And each cards is selected from 1-1 to 4-3
 	
+	var color_apagado = Color(0,0,0,0.5)
 	if tablero[0] != null:
-		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())		
+		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 	else:
 		get_node("tablero-cards/1-1/TextureRect").modulate = color_apagado
 		get_node("tablero-cards/1-1").disabled = true
@@ -233,7 +234,19 @@ func update_tablero():
 		get_node("tablero-cards/4-3").disabled = true
 	#get_node("helper/tablero_label").set_text(str(fichas.size()))
 	#update_cards_left_state()
-
+	var number_cards_deck = len(cards)
+	if number_cards_deck > 66:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-5-good.png")
+	elif number_cards_deck > 51:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-4-good.png")
+	elif number_cards_deck > 36:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-3-good.png")
+	elif number_cards_deck > 21:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-2-good.png")
+	elif number_cards_deck > 6:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-1-good.png")
+	elif number_cards_deck == 0:
+		get_node("tablero-info/set-deck").set_texture("res://img/mazo/set-deck-1-good.png")
 func get_num_selected():
 	return num_selected
 
@@ -248,7 +261,7 @@ func add_selections(n):
 		var resul = solver_params(tablero[selections[0]],tablero[selections[1]],tablero[selections[2]])
 		if resul[0]:
 			print("hay algo")
-			get_node("tablero-info/set-result").set_text("YES!!!!!!")
+			get_node("tablero-info/set-result").set_text("¡You found a SET!")
 			#update_points(PUNTOS_ACIERTO)
 			"""
 			var solved_sprite = get_node("solved1/CollisionShape2D/sprite")
@@ -263,7 +276,7 @@ func add_selections(n):
 			temp_texture = load(tablero[selections[2]].print_file_name())
 			solved_sprite.set_texture(temp_texture)
 			"""
-			# Lets check if there is enough fichas from the stack to pop out
+			# Lets check if there is enough cards from the stack to pop out
 			if tablero.size() > 0 :
 				tablero[selections[0]] = cards.pop_front()
 			if tablero.size() > 0 :
@@ -272,8 +285,6 @@ func add_selections(n):
 				tablero[selections[2]] = cards.pop_front()
 			clear_solver_button_container()
 			update_tablero()
-			
-
 
 			# Again we check if there is a solution available after poping the cards
 			var check_if_solution = solution_finder_simple()
@@ -286,7 +297,7 @@ func add_selections(n):
 			
 		else:
 			print("nada")
-			get_node("tablero-info/set-result").set_text("No")
+			get_node("tablero-info/set-result").set_text("That's not a SET")
 			#update_points(PUNTOS_ERROR)
 
 		num_selected = 0
@@ -294,6 +305,12 @@ func add_selections(n):
 		
 		selections.clear()
 		clear_buttons()
+		
+func remove_selections(n):
+	# TODO: look for the selection
+	selections.append(n)
+	add_num_selected()
+	
 		
 func clear_buttons():
 	#TODO: aqui tengo que arreglar el tema de que no me resetee el color de los botones
@@ -322,9 +339,6 @@ func clear_buttons():
 		get_node("tablero-cards/4-2").clear_button()
 	if tablero[11]:
 		get_node("tablero-cards/4-3").clear_button()
-	
-
-
 
 func _on_trampas_button_pressed() -> void:
 	clear_solver_button_container()
@@ -356,7 +370,6 @@ func solution_finder():
 	print(winners)
 	
 func _on_button_solver_entered(pos1,pos2,pos3):
-	print(pos1,pos2,pos3)
 	if pos1 == 0 or pos2 == 0 or pos3 == 0:
 		get_node("tablero-cards/1-1/TextureRect").modulate = Color(0.25,0.25,0.25)
 	if pos1 == 1 or pos2 == 1 or pos3 == 1:
@@ -382,9 +395,7 @@ func _on_button_solver_entered(pos1,pos2,pos3):
 	if pos1 == 11 or pos2 == 11 or pos3 == 11:
 		get_node("tablero-cards/4-3/TextureRect").modulate = Color(0.25,0.25,0.25)
 	
-	
 func _on_button_solver_exited(pos1,pos2,pos3):
-	print(pos1,pos2,pos3)
 	get_node("tablero-cards/1-1/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/1-2/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/1-3/TextureRect").modulate = Color(1,1,1)
@@ -397,3 +408,9 @@ func _on_button_solver_exited(pos1,pos2,pos3):
 	get_node("tablero-cards/4-1/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/4-2/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/4-3/TextureRect").modulate = Color(1,1,1)
+
+
+func _on_instructionsbtn_pressed() -> void:
+	var scene = load("res://scenes/instructions.tscn")
+	var instance = scene.instantiate()
+	add_child(instance)
