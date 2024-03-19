@@ -5,6 +5,7 @@ const PUNTOS_ACIERTO = 3
 const PUNTOS_ERROR = -2
 const PUNTOS_NO_SET_CORRECTO = 4
 const PUNTOS_NO_SET_ERROR = -5
+const MAX_NUMBER_HINTS = 3
 ######### PARAMETER SETTINGS ###########
 
 var cards = []
@@ -15,6 +16,7 @@ var sound_select
 var sound_right
 var sound_wrong
 var winners = []
+var number_hints = MAX_NUMBER_HINTS
 # We can track if the game is paused, for now only for the timer feature
 var global_pause = false
 var points = 0
@@ -110,6 +112,9 @@ func solution_finder_simple():
 			exist_solution = true
 			hint = l[0]
 			print("Hint: " + str(l[0]))
+	if (!exist_solution):
+		# If there is no solution we need the hint to be an invalid value
+		hint = -5
 	return exist_solution
 	
 # Solver al que se le pasan los parametros
@@ -524,33 +529,45 @@ func update_points(new_points):
 	points += new_points
 	var final_points = "Points:\n" + str(points)
 	get_node("tablero-info/stats-container/res-fill").set_text(final_points)
+	
+func update_hints():
+	var final_hints = "Hints:\n" + str(number_hints)
+	get_node("tablero-info/stats-container/res-fill2").set_text(final_hints)
 
 
 func _on_hintbtn_pressed() -> void:
-	if hint == 0:
-		hint_modulate("tablero-cards/1-1/TextureRect")
-	if hint == 1:
-		hint_modulate("tablero-cards/1-2/TextureRect")
-	if hint == 2:
-		hint_modulate("tablero-cards/1-3/TextureRect")
-	if hint == 3:
-		hint_modulate("tablero-cards/2-1/TextureRect")
-	if hint == 4:
-		hint_modulate("tablero-cards/2-2/TextureRect")
-	if hint == 5:
-		hint_modulate("tablero-cards/2-3/TextureRect")
-	if hint == 6:
-		hint_modulate("tablero-cards/3-1/TextureRect")
-	if hint == 7:
-		hint_modulate("tablero-cards/3-2/TextureRect")
-	if hint == 8:
-		hint_modulate("tablero-cards/3-3/TextureRect")
-	if  hint == 9:
-		hint_modulate("tablero-cards/4-1/TextureRect")
-	if  hint == 10:
-		hint_modulate("tablero-cards/4-2/TextureRect")
-	if  hint == 11:
-		hint_modulate("tablero-cards/4-3/TextureRect")
+	if (number_hints > 0):
+		if hint == 0:
+			hint_modulate("tablero-cards/1-1/TextureRect")
+		elif hint == 1:
+			hint_modulate("tablero-cards/1-2/TextureRect")
+		elif hint == 2:
+			hint_modulate("tablero-cards/1-3/TextureRect")
+		elif hint == 3:
+			hint_modulate("tablero-cards/2-1/TextureRect")
+		elif hint == 4:
+			hint_modulate("tablero-cards/2-2/TextureRect")
+		elif hint == 5:
+			hint_modulate("tablero-cards/2-3/TextureRect")
+		elif hint == 6:
+			hint_modulate("tablero-cards/3-1/TextureRect")
+		elif hint == 7:
+			hint_modulate("tablero-cards/3-2/TextureRect")
+		elif hint == 8:
+			hint_modulate("tablero-cards/3-3/TextureRect")
+		elif  hint == 9:
+			hint_modulate("tablero-cards/4-1/TextureRect")
+		elif  hint == 10:
+			hint_modulate("tablero-cards/4-2/TextureRect")
+		elif  hint == 11:
+			hint_modulate("tablero-cards/4-3/TextureRect")
+		else:
+			print("No solution")
+		number_hints = number_hints - 1
+		
+	else:
+		print("No more hints")
+	update_hints()
 	
 func hint_modulate(string_hint_button):
 	var node = get_node(string_hint_button)	
