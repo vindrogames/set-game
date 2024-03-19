@@ -61,7 +61,7 @@ func _ready() -> void:
 		print("Warning: there is no solution available")
 	else:
 		print("Ok: Solution available")
-	update_tablero()
+	update_tablero(selections)
 	
 	#### LOAD SOUNDS ####
 	
@@ -178,7 +178,7 @@ func solver_params(t1, t2, t3):
 	
 	return result
 	
-func update_tablero():	
+func update_tablero(last_selections):	
 	
 ############ NOTES #############
 # This array "tablero" mantains the logical state of the board and has 12 slots for cards                            
@@ -197,7 +197,12 @@ func update_tablero():
 #   And each cards is selected from 1-1 to 4-3
 	
 	var color_apagado = Color(0,0,0,0.5)
-	if tablero[0] != null:
+	print(last_selections)
+	## try to do animation
+	if last_selections:
+		do_animation(last_selections)
+		
+	if tablero[0] != null:	
 		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 	else:
 		get_node("tablero-cards/1-1/TextureRect").modulate = color_apagado
@@ -315,7 +320,7 @@ func add_selections(n):
 			if tablero.size() > 0 :
 				tablero[selections[2]] = cards.pop_front()
 			clear_solver_button_container()
-			update_tablero()
+			update_tablero(selections)
 
 			# Again we check if there is a solution available after poping the cards
 			var check_if_solution = solution_finder_simple()
@@ -575,3 +580,40 @@ func hint_modulate(string_hint_button):
 	tween.tween_property(node, "modulate",Color.ORANGE_RED, tween_timer*3)
 	tween.tween_property(node, "modulate", Color.WHITE, tween_timer*3)
 	
+func do_animation(last_selection):
+	for i in last_selection:
+		if (i == 0):
+			if tablero[0] != null:
+				
+				var old_deck_texture = get_node("tablero-info/set-deck").get_texture()
+				get_node("tablero-info/set-deck").set_texture(tablero[0].get_texture())
+				
+				var from_node = get_node("tablero-info/set-deck")
+				var origin = from_node.get_global_transform().get_origin()
+				
+				var go_to_node = get_node("tablero-cards/1-1")
+				var destination = go_to_node.get_global_transform().get_origin()
+				
+				var card_copy: TextureButton = get_node("tablero-cards/1-1").duplicate()
+				card_copy.set_position(destination)
+				get_node(".").add_child(card_copy)
+				
+				var deck_copy: TextureRect = get_node("tablero-info/set-deck").duplicate()
+				deck_copy.set_position(origin)
+				get_node(".").add_child(deck_copy)
+				
+				var tween = get_tree().create_tween()	
+				tween.tween_property(deck_copy, "position", destination, tween_timer*3)
+				tween.tween_callback(deck_copy.queue_free)
+				tween.tween_callback(card_copy.queue_free)
+
+				#tween.tween_property(deck_copy, "modulate", Color.WHITE, tween_timer*3)
+				#get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
+				
+				
+				
+				
+				
+				
+				
+				
