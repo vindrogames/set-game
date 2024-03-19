@@ -519,4 +519,5 @@ stream = ExtResource("27_jviby")
 [connection signal="pressed" from="tablero-cards/4-2" to="tablero-cards/4-2" method="_on_pressed"]
 [connection signal="pressed" from="tablero-cards/4-3" to="tablero-cards/4-3" method="_on_pressed"]
 [connection signal="pressed" from="tablero-info/no-set-btn" to="." method="_on_nosetbtn_pressed"]
+[connection signal="pressed" from="tablero-info/hint-btn" to="." method="_on_hintbtn_pressed"]
 [connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]

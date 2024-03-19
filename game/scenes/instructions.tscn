@@ -20,7 +20,7 @@ text = "[b][u]Rich Text Test[/u][/b]
 
 RichTextLabel is a flexible way of adding text to your game, with support for [i]italics[/i], [b]bold[/b] and [i][b]both[/b][/i].
  [u]Underline[/u] works too, including with [u][i]italics[/i][/u], [u][b]bold[/b][/u] and [u][i][b]both[/b][/i][/u].
-It is also possible to include [img]res://unicorn_icon.png[/img] custom images, as well as [color=aqua][url=https://godotengine.org]custom URLs[/url][/color].
+It is also possible to include custom images, as well as [color=aqua][url=https://godotengine.org]custom URLs[/url][/color].
 
 Left alignment is default,[center]but center alignment is supported,[/center][right]as well as right alignment.[/right]
 

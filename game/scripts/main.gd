@@ -28,12 +28,16 @@ var red_card: Color = Color(2.12,0.56,0.21,1)
 var red_red: Color = Color.html("#d43815")
 var tween_timer: float = 0.5
 
+######### HINT ############
+var hint
+
 func _init() -> void:
 	init_cards()
 		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	update_points(0)
 	var tablero_valido = false
 	while (not tablero_valido):
 	# We fill the initial board with the fichas
@@ -104,6 +108,8 @@ func solution_finder_simple():
 		var resul = solver_params(tablero[l[0]],tablero[l[1]],tablero[l[2]])
 		if resul[0]:
 			exist_solution = true
+			hint = l[0]
+			print("Hint: " + str(l[0]))
 	return exist_solution
 	
 # Solver al que se le pasan los parametros
@@ -248,8 +254,10 @@ func update_tablero():
 		get_node("tablero-cards/4-3").disabled = true
 	#get_node("helper/tablero_label").set_text(str(fichas.size()))
 	#update_cards_left_state()
+	
 	var number_cards_deck = len(cards)
-	get_node("tablero-info/stats-container/stat-cards").set_text(str(number_cards_deck))
+	var final_string =  "Cards:\n" + str(number_cards_deck)
+	get_node("tablero-info/stats-container/stat-cards").set_text(final_string)
 	var tmp_texture = load("res://img/mazo/set-deck-5-good.png")
 	if number_cards_deck > 66:
 		tmp_texture = load("res://img/mazo/set-deck-5-good.png")		
@@ -264,6 +272,15 @@ func update_tablero():
 	elif number_cards_deck == 0:
 		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
 	get_node("tablero-info/set-deck").set_texture(tmp_texture)
+	
+	######## Save the Hint somewhere so it doesnt change even if the user click several times
+	# It will only change when the boards is updated
+	# I dont think i need to call it again but whatever
+	solution_finder_simple()
+	# The Hint is saved on the variable Hint
+	
+	
+	
 func get_num_selected():
 	return num_selected
 
@@ -283,20 +300,8 @@ func add_selections(n):
 			get_node("tablero-info/set-result").set_text(final_text)
 			sound_select.stop()
 			sound_right.play()
-			#update_points(PUNTOS_ACIERTO)
-			"""
-			var solved_sprite = get_node("solved1/CollisionShape2D/sprite")
-			var temp_texture = load(tablero[selections[0]].print_file_name())
-			solved_sprite.set_texture(temp_texture)
+			update_points(PUNTOS_ACIERTO)
 			
-			solved_sprite = get_node("solved2/CollisionShape2D/sprite")
-			temp_texture = load(tablero[selections[1]].print_file_name())
-			solved_sprite.set_texture(temp_texture)
-			
-			solved_sprite = get_node("solved3/CollisionShape2D/sprite")
-			temp_texture = load(tablero[selections[2]].print_file_name())
-			solved_sprite.set_texture(temp_texture)
-			"""
 			# Lets check if there is enough cards from the stack to pop out
 			if tablero.size() > 0 :
 				tablero[selections[0]] = cards.pop_front()
@@ -322,6 +327,7 @@ func add_selections(n):
 			
 		else:
 			print("nada")
+			update_points(PUNTOS_ERROR)
 			var final_text = "Sorry\nThat's not a SET\n" + str(PUNTOS_ERROR) + " points"
 			get_node("tablero-info/set-result").set_text(final_text)
 			sound_select.stop()
@@ -497,11 +503,13 @@ func _on_nosetbtn_pressed() -> void:
 		var final_text = "You are wrong\nthere is a SET" + "\n" + str(PUNTOS_NO_SET_ERROR) + " points"
 		var font_size = font_calculator(final_text)
 		print(font_size)
-		var node: Label = get_node("tablero-info/set-result")		
+		var node: Label = get_node("tablero-info/set-result")
 		node.add_theme_font_size_override("temp", font_size)
 		get_node("tablero-info/set-result").set_text(final_text)
+		update_points(PUNTOS_NO_SET_ERROR)
 	else:	
 		# TODO: Update text of the cards indicating that there is indeed no solution available
+		update_points(PUNTOS_NO_SET_CORRECTO)
 		var final_text = "You are right!\nthrere is no SET" + "\n+" + str(PUNTOS_NO_SET_CORRECTO) + " points"
 		get_node("tablero-info/set-result").set_text(final_text)
 		
@@ -511,3 +519,42 @@ func font_calculator(texto):
 	if (long > 13):
 		font_size = 12
 	return font_size
+	
+func update_points(new_points):
+	points += new_points
+	var final_points = "Points:\n" + str(points)
+	get_node("tablero-info/stats-container/res-fill").set_text(final_points)
+
+
+func _on_hintbtn_pressed() -> void:
+	if hint == 0:
+		hint_modulate("tablero-cards/1-1/TextureRect")
+	if hint == 1:
+		hint_modulate("tablero-cards/1-2/TextureRect")
+	if hint == 2:
+		hint_modulate("tablero-cards/1-3/TextureRect")
+	if hint == 3:
+		hint_modulate("tablero-cards/2-1/TextureRect")
+	if hint == 4:
+		hint_modulate("tablero-cards/2-2/TextureRect")
+	if hint == 5:
+		hint_modulate("tablero-cards/2-3/TextureRect")
+	if hint == 6:
+		hint_modulate("tablero-cards/3-1/TextureRect")
+	if hint == 7:
+		hint_modulate("tablero-cards/3-2/TextureRect")
+	if hint == 8:
+		hint_modulate("tablero-cards/3-3/TextureRect")
+	if  hint == 9:
+		hint_modulate("tablero-cards/4-1/TextureRect")
+	if  hint == 10:
+		hint_modulate("tablero-cards/4-2/TextureRect")
+	if  hint == 11:
+		hint_modulate("tablero-cards/4-3/TextureRect")
+	
+func hint_modulate(string_hint_button):
+	var node = get_node(string_hint_button)	
+	var tween = get_tree().create_tween()	
+	tween.tween_property(node, "modulate",Color.ORANGE_RED, tween_timer*3)
+	tween.tween_property(node, "modulate", Color.WHITE, tween_timer*3)
+	
