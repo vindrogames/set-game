@@ -2,9 +2,9 @@ extends Node2D
 ######### PARAMETER SETTINGS ###########
 const MAX_FICHAS = 81
 const PUNTOS_ACIERTO = 3
-const PUNTOS_ERROR = -1
-const PUNTOS_NO_SET_CORRECTO = 6
-const PUNTOS_NO_SET_ERROR = -4
+const PUNTOS_ERROR = -2
+const PUNTOS_NO_SET_CORRECTO = 4
+const PUNTOS_NO_SET_ERROR = -5
 ######### PARAMETER SETTINGS ###########
 
 var cards = []
@@ -22,6 +22,11 @@ var points = 0
 const Cards = preload("res://scripts/card.gd")
 var ins_scene = preload("res://scenes/instructions.tscn")
 var instance
+############### COLORS ##################
+var yellow_card: Color = Color(0.98,0.86,0.29,1)
+var red_card: Color = Color(2.12,0.56,0.21,1)
+var red_red: Color = Color.html("#d43815")
+var tween_timer: float = 0.5
 
 func _init() -> void:
 	init_cards()
@@ -274,7 +279,8 @@ func add_selections(n):
 		var resul = solver_params(tablero[selections[0]],tablero[selections[1]],tablero[selections[2]])
 		if resul[0]:
 			print("hay algo")
-			get_node("tablero-info/set-result").set_text("¡You found a SET!")
+			var final_text = "Yes!\nThat's a SET\n+" + str(PUNTOS_ACIERTO) + " points"
+			get_node("tablero-info/set-result").set_text(final_text)
 			sound_select.stop()
 			sound_right.play()
 			#update_points(PUNTOS_ACIERTO)
@@ -309,13 +315,21 @@ func add_selections(n):
 			else:
 				print("Ok: Solution available")
 			
+			var tween = get_tree().create_tween()
+			var label_result: Label = get_node("tablero-info/set-result")
+			tween.tween_property(label_result, "modulate", yellow_card, tween_timer/2)
+			tween.tween_property(label_result, "modulate", Color.WHITE, tween_timer/2)
 			
 		else:
 			print("nada")
-			get_node("tablero-info/set-result").set_text("That's not a SET")
+			var final_text = "Sorry\nThat's not a SET\n" + str(PUNTOS_ERROR) + " points"
+			get_node("tablero-info/set-result").set_text(final_text)
 			sound_select.stop()
 			sound_wrong.play()
-			#update_points(PUNTOS_ERROR)
+			var tween = get_tree().create_tween()
+			var label_result: Label = get_node("tablero-info/set-result")
+			tween.tween_property(label_result, "modulate", red_red, tween_timer/2)
+			tween.tween_property(label_result, "modulate", Color.WHITE, tween_timer/2)
 
 		num_selected = 0
 		#update_points_button()
@@ -475,3 +489,25 @@ func update_timer():
 	if (((minutes != old_minutes) || (seconds != old_seconds)) && not global_pause ):
 		#print(str)
 		get_node("top-bar/game-time").set_text(str_time)
+
+# We will check if there is no set
+func _on_nosetbtn_pressed() -> void:	
+	if (solution_finder_simple()):		
+		# TODO: Inform user that there is a solution
+		var final_text = "You are wrong\nthere is a SET" + "\n" + str(PUNTOS_NO_SET_ERROR) + " points"
+		var font_size = font_calculator(final_text)
+		print(font_size)
+		var node: Label = get_node("tablero-info/set-result")		
+		node.add_theme_font_size_override("temp", font_size)
+		get_node("tablero-info/set-result").set_text(final_text)
+	else:	
+		# TODO: Update text of the cards indicating that there is indeed no solution available
+		var final_text = "You are right!\nthrere is no SET" + "\n+" + str(PUNTOS_NO_SET_CORRECTO) + " points"
+		get_node("tablero-info/set-result").set_text(final_text)
+		
+func font_calculator(texto):
+	var long = len(texto)
+	var font_size = 18
+	if (long > 13):
+		font_size = 12
+	return font_size

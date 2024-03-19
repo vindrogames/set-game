@@ -57,7 +57,9 @@ corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edc1s"]
+content_margin_left = 3.0
 content_margin_top = 21.0
+content_margin_right = 3.0
 content_margin_bottom = 21.0
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 14
@@ -329,6 +331,7 @@ offset_top = 42.0
 offset_right = 182.0
 offset_bottom = 143.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_edc1s")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -515,4 +518,5 @@ stream = ExtResource("27_jviby")
 [connection signal="pressed" from="tablero-cards/4-1" to="tablero-cards/4-1" method="_on_pressed"]
 [connection signal="pressed" from="tablero-cards/4-2" to="tablero-cards/4-2" method="_on_pressed"]
 [connection signal="pressed" from="tablero-cards/4-3" to="tablero-cards/4-3" method="_on_pressed"]
+[connection signal="pressed" from="tablero-info/no-set-btn" to="." method="_on_nosetbtn_pressed"]
 [connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]
