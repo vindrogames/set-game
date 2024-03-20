@@ -203,6 +203,7 @@ func update_tablero(last_selections):
 		do_animation(last_selections)
 		
 	if tablero[0] != null:	
+		await get_tree().create_timer(2.0).timeout
 		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 	else:
 		get_node("tablero-cards/1-1/TextureRect").modulate = color_apagado
@@ -347,6 +348,36 @@ func add_selections(n):
 			tween.tween_property(label_result, "modulate", red_red, tween_timer/2)
 			tween.tween_property(label_result, "modulate", Color.WHITE, tween_timer/2)
 
+		########### Inform user for the solution
+		var res_num = get_node("tablero-info/res-num") 
+		var res_color = get_node("tablero-info/res-color")
+		var res_shape = get_node("tablero-info/res-shape")
+		var res_fill = get_node("tablero-info/res-fill")
+		if (resul[1]):
+			var final_string = "Number\n\nSET"
+			res_num.set_text(final_string)
+		else:
+			var final_string = "Number\n\nNO SET"
+			res_num.set_text(final_string)
+		if (resul[2]):
+			var final_string = "Color\n\nSET"
+			res_color.set_text(final_string)
+		else:
+			var final_string = "Color\n\nNO SET"
+			res_color.set_text(final_string)
+		if (resul[3]):
+			var final_string = "Shape\n\nSET"
+			res_shape.set_text(final_string)
+		else:
+			var final_string = "Shape\n\nNO SET"
+			res_shape.set_text(final_string)
+		if (resul[4]):
+			var final_string = "Fill\n\nSET"
+			res_fill.set_text(final_string)
+		else:
+			var final_string = "Fill\n\nNO SET"
+			res_fill.set_text(final_string)
+		
 		num_selected = 0
 		#update_points_button()
 		
@@ -577,7 +608,7 @@ func _on_hintbtn_pressed() -> void:
 func hint_modulate(string_hint_button):
 	var node = get_node(string_hint_button)	
 	var tween = get_tree().create_tween()	
-	tween.tween_property(node, "modulate",Color.ORANGE_RED, tween_timer*3)
+	tween.tween_property(node, "modulate",Color.YELLOW_GREEN, tween_timer*3)
 	tween.tween_property(node, "modulate", Color.WHITE, tween_timer*3)
 	
 func do_animation(last_selection):
@@ -594,9 +625,9 @@ func do_animation(last_selection):
 				var go_to_node = get_node("tablero-cards/1-1")
 				var destination = go_to_node.get_global_transform().get_origin()
 				
-				var card_copy: TextureButton = get_node("tablero-cards/1-1").duplicate()
-				card_copy.set_position(destination)
-				get_node(".").add_child(card_copy)
+				#var card_copy: TextureButton = get_node("tablero-cards/1-1").duplicate()
+				#card_copy.set_position(destination)
+				#get_node(".").add_child(card_copy)
 				
 				var deck_copy: TextureRect = get_node("tablero-info/set-deck").duplicate()
 				deck_copy.set_position(origin)
@@ -605,7 +636,7 @@ func do_animation(last_selection):
 				var tween = get_tree().create_tween()	
 				tween.tween_property(deck_copy, "position", destination, tween_timer*3)
 				tween.tween_callback(deck_copy.queue_free)
-				tween.tween_callback(card_copy.queue_free)
+				#tween.tween_callback(card_copy.queue_free)
 
 				#tween.tween_property(deck_copy, "modulate", Color.WHITE, tween_timer*3)
 				#get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
