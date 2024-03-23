@@ -2,48 +2,60 @@
 
 [ext_resource type="Script" path="res://scripts/instructions.gd" id="1_q4ld0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvdb3"]
-bg_color = Color(0.186343, 0.691484, 0.583103, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0foqf"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.94902)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 21
+corner_radius_top_right = 21
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 21
 
 [node name="Instructions" type="Node2D"]
 script = ExtResource("1_q4ld0")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 42.0
+offset_left = 63.0
 offset_top = 42.0
-offset_right = 546.0
+offset_right = 525.0
 offset_bottom = 840.0
-theme_override_styles/background = SubResource("StyleBoxFlat_fvdb3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0foqf")
 bbcode_enabled = true
-text = "[b][u]Rich Text Test[/u][/b]
+text = "[color=white][font_size=12]Recommended for ages 6+[/font_size]
 
-RichTextLabel is a flexible way of adding text to your game, with support for [i]italics[/i], [b]bold[/b] and [i][b]both[/b][/i].
- [u]Underline[/u] works too, including with [u][i]italics[/i][/u], [u][b]bold[/b][/u] and [u][i][b]both[/b][/i][/u].
-It is also possible to include custom images, as well as [color=aqua][url=https://godotengine.org]custom URLs[/url][/color].
+[fill]In our App version of the game you play a solitaire mode. The cards are shuffled and you will see 12 cards on the table. You will try to find a SET of 3 cards of the 12. Each card has 4 features:[/fill]
 
-Left alignment is default,[center]but center alignment is supported,[/center][right]as well as right alignment.[/right]
+[center][b]Numer[/b]  |  [b]Color[/b]  |  [b]Shape[/b]  |  [b]Fill[/b][/center]
 
-[fill]Fill alignment is also supported, and allows writing very long text that will end up fitting the horizontal space entirely with words of joy.[/fill]
+[fill]A SET consists of 3 cards that when looking at [i][b]each feature, one by one, are the same on all 3 cards or are different on all 3 cards[/b][/i]. All 3 features are independant and must constitue a SET for all 3 cards:[/fill]
 
-For full reference, [color=aqua][url=https://docs.godotengine.org/en/latest/tutorials/gui/bbcode_in_richtextlabel.html]check the documentation.[/url][/color]
-\"
-text = \"Rich Text Test
+[center][img=121]res://img/cards/1-G-D-L.png[/img]    [img=121]res://img/cards/2-R-R-F.png[/img]    [img=121]res://img/cards/3-B-S-B.png[/img]
+[font_size=10]DIFFERENT shapes, DIFFERENT colors, DIFFERENT fills and DIFFERENT numbers[/font_size][/center]
 
-RichTextLabel is a flexible way of adding text to your game, with support for italics, bold and both.
- Underline works too, including with italics, bold and both.
-It is also possible to include  custom images, as well as custom URLs.
+[center][img=121]res://img/cards/2-R-D-B.png[/img]    [img=121]res://img/cards/2-B-D-B.png[/img]    [img=121]res://img/cards/2-G-D-B.png[/img]
+[font_size=10]SAME shape, DIFFERENT color, SAME fill and SAME number[/font_size][/center]
 
-Left alignment is default,but center alignment is supported,as well as right alignment.
+[center][img=121]res://img/cards/2-R-S-L.png[/img]    [img=121]res://img/cards/2-R-R-B.png[/img]    [img=121]res://img/cards/2-R-D-B.png[/img]
+[font_size=10]DIFFERENT shape, SAME color, DIFFERENT fill and SAME number[/font_size][/center]
 
-Fill alignment is also supported, and allows writing very long text that will end up fitting the horizontal space entirely with words of joy.
+[fill]When you think you see a SET, select 3 cards by clicking on them and you will see your result! If you think there is no SET on the table, which can happen, then click the \"NO SET\" button. If there is no possible SET amongst the cards shown a new 12 cards will appear.[/fill]
 
-For full reference, check the documentation."
+[center][font_size=12][table=4] [cell bg=fcdc4c][color=black][p align=center]  Correct SET  [/p][p align=center]  +3 points  [/p][/color][/cell] [cell bg=d43815][color=white][p align=center]  Incorrect SET  [/p][p align=center]  -2 points  [/p][/color][/cell] [cell bg=fcdc4c][color=black][p align=center]  Correct NO SET  [/p][p align=center]  +4 points  [/p][/color][/cell] [cell bg=d43815][color=white][p align=center]  Incorrect NO SET  [/p][p align=center]  -5 points  [/p][/color][/cell] [/table][/font_size][/center]
+
+[fill]Lastly, we have a \"HINT\" button you can click depending on how many hints you have. A hint will cost you one point but will show you 1 card of the SET or, if there is no set, it will show the \"NO SET\" button. You start with only 3 hints and the game has 81 cards so use your hints wisely. If you guess correctly 7 times in a row, you earn an extra hint! Try to complete the game with as many points possible![/fill]"
 
 [node name="ins_close_button" type="Button" parent="."]
-offset_left = 215.0
-offset_top = 709.0
-offset_right = 366.0
-offset_bottom = 782.0
+offset_left = 376.0
+offset_top = 56.0
+offset_right = 462.0
+offset_bottom = 87.0
 text = "CLOSE"
 
 [connection signal="pressed" from="ins_close_button" to="." method="_on_ins_close_button_pressed"]

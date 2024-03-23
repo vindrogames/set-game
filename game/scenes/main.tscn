@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=38 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
@@ -68,6 +68,13 @@ corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmo5l"]
+bg_color = Color(0.988235, 0.862745, 0.298039, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqra2"]
 bg_color = Color(1, 1, 1, 1)
 border_width_right = 1
@@ -105,6 +112,7 @@ offset_top = 14.0
 offset_right = 224.0
 offset_bottom = 56.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
@@ -344,6 +352,7 @@ offset_top = 42.0
 offset_right = 546.0
 offset_bottom = 84.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("27_ve4e7")
 theme_override_font_sizes/font_size = 21
 theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
@@ -357,7 +366,9 @@ offset_top = 100.0
 offset_right = 546.0
 offset_bottom = 142.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 21
+theme_override_styles/hover = SubResource("StyleBoxFlat_nmo5l")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
 text = "hint"
 
