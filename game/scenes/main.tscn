@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=38 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Texture2D" uid="uid://dckdo8xsi6n8k" path="res://img/cards/1-B-D-B.png" id="1_i1arj"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
@@ -27,7 +27,8 @@
 [ext_resource type="Script" path="res://scripts/4-2.gd" id="22_eas3q"]
 [ext_resource type="Script" path="res://scripts/4-3.gd" id="24_k2xnc"]
 [ext_resource type="AudioStream" uid="uid://c65sxbgn6u3pu" path="res://sound/select.wav" id="27_jviby"]
-[ext_resource type="FontFile" path="res://fonts/Xolonium.tres" id="27_ve4e7"]
+[ext_resource type="FontFile" uid="uid://cd4lt6x8o20k6" path="res://fonts/Xolonium.tres" id="27_ve4e7"]
+[ext_resource type="Script" path="res://scripts/button_script.gd" id="28_fxvbi"]
 [ext_resource type="AudioStream" uid="uid://dkcqpemi1mysm" path="res://sound/right.wav" id="28_uqk88"]
 [ext_resource type="AudioStream" uid="uid://coidtnrc8tp7k" path="res://sound/wrong.wav" id="29_src67"]
 
@@ -360,6 +361,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
 text = "hint"
+script = ExtResource("28_fxvbi")
 
 [node name="res-num" type="Label" parent="tablero-info"]
 auto_translate_mode = 1
@@ -517,5 +519,7 @@ stream = ExtResource("27_jviby")
 [connection signal="pressed" from="tablero-cards/4-2" to="tablero-cards/4-2" method="_on_pressed"]
 [connection signal="pressed" from="tablero-cards/4-3" to="tablero-cards/4-3" method="_on_pressed"]
 [connection signal="pressed" from="tablero-info/no-set-btn" to="." method="_on_nosetbtn_pressed"]
+[connection signal="mouse_entered" from="tablero-info/hint-btn" to="tablero-info/hint-btn" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="tablero-info/hint-btn" to="tablero-info/hint-btn" method="_on_mouse_exited"]
 [connection signal="pressed" from="tablero-info/hint-btn" to="." method="_on_hintbtn_pressed"]
 [connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]

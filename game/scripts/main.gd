@@ -77,6 +77,7 @@ func _process(_delta: float) -> void:
 #	the caracteristics of the Card object: number, color, shape and fill and will create an array with card
 #	objects, with its reference with the image that should load and then will shuffle
 ######################
+
 func init_cards():
 	var dir = DirAccess.open("res://img/cards")
 	if dir != null:
@@ -641,10 +642,4 @@ func do_animation(last_selection):
 				#tween.tween_property(deck_copy, "modulate", Color.WHITE, tween_timer*3)
 				#get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 				
-				
-				
-				
-				
-				
-				
-				
+
