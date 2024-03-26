@@ -19,15 +19,16 @@ corner_radius_bottom_left = 21
 [node name="Instructions" type="Node2D"]
 
 [node name="background" type="TextureRect" parent="."]
-offset_top = 46.0
-offset_right = 589.0
-offset_bottom = 881.0
+offset_left = -1.0
+offset_top = 65.0
+offset_right = 588.0
+offset_bottom = 882.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = 63.0
-offset_top = 42.0
+offset_top = 62.0
 offset_right = 525.0
-offset_bottom = 840.0
+offset_bottom = 860.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0foqf")
 bbcode_enabled = true
 text = "[color=white][font_size=12]Recommended for ages 6+[/font_size]
