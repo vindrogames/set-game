@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://xu1b7nsow5n5"]
-
-[ext_resource type="Script" path="res://scripts/instructions.gd" id="1_q4ld0"]
+[gd_scene load_steps=2 format=3 uid="uid://xu1b7nsow5n5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0foqf"]
 content_margin_left = 14.0
@@ -19,7 +17,11 @@ corner_radius_bottom_right = 21
 corner_radius_bottom_left = 21
 
 [node name="Instructions" type="Node2D"]
-script = ExtResource("1_q4ld0")
+
+[node name="background" type="TextureRect" parent="."]
+offset_top = 46.0
+offset_right = 589.0
+offset_bottom = 881.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = 63.0
@@ -50,12 +52,3 @@ text = "[color=white][font_size=12]Recommended for ages 6+[/font_size]
 [center][font_size=12][table=4] [cell bg=fcdc4c][color=black][p align=center]  Correct SET  [/p][p align=center]  +3 points  [/p][/color][/cell] [cell bg=d43815][color=white][p align=center]  Incorrect SET  [/p][p align=center]  -2 points  [/p][/color][/cell] [cell bg=fcdc4c][color=black][p align=center]  Correct NO SET  [/p][p align=center]  +4 points  [/p][/color][/cell] [cell bg=d43815][color=white][p align=center]  Incorrect NO SET  [/p][p align=center]  -5 points  [/p][/color][/cell] [/table][/font_size][/center]
 
 [fill]Lastly, we have a \"HINT\" button you can click depending on how many hints you have. A hint will cost you one point but will show you 1 card of the SET or, if there is no set, it will show the \"NO SET\" button. You start with only 3 hints and the game has 81 cards so use your hints wisely. If you guess correctly 7 times in a row, you earn an extra hint! Try to complete the game with as many points possible![/fill]"
-
-[node name="ins_close_button" type="Button" parent="."]
-offset_left = 376.0
-offset_top = 56.0
-offset_right = 462.0
-offset_bottom = 87.0
-text = "CLOSE"
-
-[connection signal="pressed" from="ins_close_button" to="." method="_on_ins_close_button_pressed"]

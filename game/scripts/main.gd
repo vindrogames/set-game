@@ -488,14 +488,6 @@ func _on_button_solver_exited(_pos1,_pos2,_pos3):
 	get_node("tablero-cards/4-2/TextureRect").modulate = Color(1,1,1)
 	get_node("tablero-cards/4-3/TextureRect").modulate = Color(1,1,1)
 
-func _on_instructionsbtn_pressed() -> void:
-	global_pause = true
-	pause_starts = 0
-	pause_ends = 0	
-	pause_starts = Time.get_unix_time_from_system()
-	instance = ins_scene.instantiate()
-	get_tree().get_root().add_child(instance)
-
 func remove_ins():
 	global_pause = false
 	pause_ends = Time.get_unix_time_from_system()
@@ -643,3 +635,20 @@ func do_animation(last_selection):
 				#get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 				
 
+
+
+func _on_instructionsbtn_toggled(toggled_on: bool) -> void:
+	if (toggled_on):
+		global_pause = true
+		pause_starts = 0
+		pause_ends = 0	
+		pause_starts = Time.get_unix_time_from_system()
+		instance = ins_scene.instantiate()
+		get_tree().get_root().add_child(instance)
+	else:
+		global_pause = false
+		pause_ends = Time.get_unix_time_from_system()
+		pause_time = pause_time + pause_ends - pause_starts
+		pause_ends = 0
+		pause_starts = 0
+		get_tree().get_root().remove_child(instance)
