@@ -437,6 +437,10 @@ func solution_finder():
 			winners.append([l[0],l[1],l[2]])
 			winners_label_text = winners_label_text + str(int(l[0])+1) + " " + str(int(l[1])+1) + " " + str(int(l[2])+1) + "\n"
 			var button1 = Button.new()
+			var style: StyleBoxFlat = StyleBoxFlat.new()
+			style.set_bg_color(Color.BLUE)
+			style.set_border_color(Color.RED)
+			button1.add_theme_stylebox_override("normal", style)
 			#button1.text = str(int(l[0])+1) + " " + str(int(l[1])+1) + " " + str(int(l[2])+1)			
 			button1.connect("pressed",Callable(self,"_on_button_solver_pressed"))
 			button1.connect("mouse_entered",Callable(self,"_on_button_solver_entered").bind(l[0],l[1],l[2]))

@@ -12,18 +12,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-func _on_mouse_entered() -> void:
-	on_hover(self)
-	
 func on_hover(boton: Button):
 	var new_stylebox_normal = self.get_theme_stylebox("normal").duplicate()
 	old_style = new_stylebox_normal
 	new_stylebox_normal.border_width_top = 7
 	new_stylebox_normal.border_color = Color(0, 1, 0.5)
 	self.add_theme_stylebox_override("normal", new_stylebox_normal)
-
-
-
-func _on_mouse_exited() -> void:	
-	self.add_theme_stylebox_override("normal", old_style)
