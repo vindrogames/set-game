@@ -61,6 +61,7 @@ func _ready() -> void:
 		print("Warning: there is no solution available")
 	else:
 		print("Ok: Solution available")
+	await get_tree().create_timer(2.0).timeout
 	update_tablero(selections)
 	
 	#### LOAD SOUNDS ####
@@ -101,6 +102,7 @@ func init_cards():
 		# In case there is no directory quit the application
 		get_tree().quit()
 	cards.shuffle()
+	
 	return cards;
 
 func solution_finder_simple():
@@ -179,7 +181,7 @@ func solver_params(t1, t2, t3):
 	
 	return result
 	
-func update_tablero(last_selections):	
+func update_tablero(last_selections):
 	
 ############ NOTES #############
 # This array "tablero" mantains the logical state of the board and has 12 slots for cards                            
@@ -204,7 +206,7 @@ func update_tablero(last_selections):
 		do_animation(last_selections)
 		
 	if tablero[0] != null:	
-		await get_tree().create_timer(2.0).timeout
+		#await get_tree().create_timer(2.0).timeout
 		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
 	else:
 		get_node("tablero-cards/1-1/TextureRect").modulate = color_apagado
@@ -279,7 +281,8 @@ func update_tablero(last_selections):
 		tmp_texture = load("res://img/mazo/set-deck-3-good.png")		
 	elif number_cards_deck > 21:
 		tmp_texture = load("res://img/mazo/set-deck-2-good.png")		
-	elif number_cards_deck > 6:
+	# TODO: Adjust the images and the number of the decks
+	elif number_cards_deck > 0:
 		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
 	elif number_cards_deck == 0:
 		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
@@ -289,9 +292,7 @@ func update_tablero(last_selections):
 	# It will only change when the boards is updated
 	# I dont think i need to call it again but whatever
 	solution_finder_simple()
-	# The Hint is saved on the variable Hint
-	
-	
+	# The Hint is saved on the variable 
 	
 func get_num_selected():
 	return num_selected
@@ -656,3 +657,12 @@ func _on_instructionsbtn_toggled(toggled_on: bool) -> void:
 		pause_ends = 0
 		pause_starts = 0
 		get_tree().get_root().remove_child(instance)
+		
+func deal_new_board():
+	tablero.clear()
+	for i in range(0,12):
+		tablero.append(cards.pop_back())
+	update_tablero(null)
+
+func _on_tramps_deal_pressed() -> void:
+	deal_new_board()

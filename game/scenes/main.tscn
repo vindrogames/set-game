@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=30 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
 [ext_resource type="Texture2D" uid="uid://bkpr7njus7mhf" path="res://img/mazo/set-deck-5-good.png" id="2_ayyyq"]
@@ -34,6 +34,11 @@ corner_radius_top_left = 7
 corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbgww"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sojf4"]
+bg_color = Color(0.988235, 0.862745, 0.298039, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yulmg"]
 bg_color = Color(0.121569, 0.156863, 0.2, 1)
@@ -105,6 +110,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_tbgww")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sojf4")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")
 toggle_mode = true
 text = "instructions"
@@ -495,6 +502,13 @@ offset_top = 24.0
 offset_right = 125.0
 offset_bottom = 88.0
 
+[node name="tramps_deal" type="Button" parent="trampas"]
+offset_left = 145.0
+offset_top = 55.0
+offset_right = 318.0
+offset_bottom = 79.0
+text = "DEAL 12"
+
 [node name="sound" type="Node" parent="."]
 
 [node name="wrong" type="AudioStreamPlayer" parent="sound"]
@@ -522,3 +536,4 @@ stream = ExtResource("27_jviby")
 [connection signal="pressed" from="tablero-info/no-set-btn" to="." method="_on_nosetbtn_pressed"]
 [connection signal="pressed" from="tablero-info/hint-btn" to="." method="_on_hintbtn_pressed"]
 [connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]
+[connection signal="pressed" from="trampas/tramps_deal" to="." method="_on_tramps_deal_pressed"]
