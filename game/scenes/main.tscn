@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b1dfla53q1w4k"]
+[gd_scene load_steps=29 format=3 uid="uid://b1dfla53q1w4k"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lbu14"]
 [ext_resource type="Texture2D" uid="uid://bkpr7njus7mhf" path="res://img/mazo/set-deck-5-good.png" id="2_ayyyq"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://scripts/4-2.gd" id="22_eas3q"]
 [ext_resource type="Script" path="res://scripts/4-3.gd" id="24_k2xnc"]
 [ext_resource type="AudioStream" uid="uid://c65sxbgn6u3pu" path="res://sound/select.wav" id="27_jviby"]
-[ext_resource type="FontFile" uid="uid://cd4lt6x8o20k6" path="res://fonts/Xolonium.tres" id="27_ve4e7"]
 [ext_resource type="Script" path="res://scripts/button_script.gd" id="28_fxvbi"]
 [ext_resource type="AudioStream" uid="uid://dkcqpemi1mysm" path="res://sound/right.wav" id="28_uqk88"]
 [ext_resource type="AudioStream" uid="uid://coidtnrc8tp7k" path="res://sound/wrong.wav" id="29_src67"]
@@ -351,7 +350,6 @@ offset_right = 546.0
 offset_bottom = 84.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("27_ve4e7")
 theme_override_font_sizes/font_size = 21
 theme_override_styles/hover = SubResource("StyleBoxFlat_ybooy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yulmg")

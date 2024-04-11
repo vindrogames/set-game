@@ -1,4 +1,9 @@
 extends Node2D
+
+######### DEBUG SETTINGS ############
+const DEBUG = true
+######### END ###########
+
 ######### PARAMETER SETTINGS ###########
 const MAX_FICHAS = 81
 const PUNTOS_ACIERTO = 3
@@ -6,7 +11,12 @@ const PUNTOS_ERROR = -2
 const PUNTOS_NO_SET_CORRECTO = 4
 const PUNTOS_NO_SET_ERROR = -5
 const MAX_NUMBER_HINTS = 3
-######### PARAMETER SETTINGS ###########
+######### END ###########
+
+######### TRACKING SETTINGS ############
+var points = 0
+var time_played = 0
+######### END ###########
 
 var cards = []
 var tablero = []
@@ -19,10 +29,10 @@ var winners = []
 var number_hints = MAX_NUMBER_HINTS
 # We can track if the game is paused, for now only for the timer feature
 var global_pause = false
-var points = 0
 
 const Cards = preload("res://scripts/card.gd")
 var ins_scene = preload("res://scenes/instructions.tscn")
+var end_screen = preload("res://scenes/endscreen.tscn")
 var instance
 ############### COLORS ##################
 var yellow_card: Color = Color(0.98,0.86,0.29,1)
@@ -38,7 +48,10 @@ func _init() -> void:
 		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	if (not DEBUG):
+		var node_trampas: Node2D = get_node("trampas")
+		node_trampas.hide()
+		node_trampas.PROCESS_MODE_DISABLED
 	update_points(0)
 	var tablero_valido = false
 	while (not tablero_valido):
@@ -69,6 +82,8 @@ func _ready() -> void:
 	sound_select = get_node("sound/select")
 	sound_right = get_node("sound/right")
 	sound_wrong = get_node("sound/wrong")
+	
+	# We are on production
 	
 func _process(_delta: float) -> void:
 	update_timer()
@@ -283,10 +298,12 @@ func update_tablero(last_selections):
 		tmp_texture = load("res://img/mazo/set-deck-2-good.png")		
 	# TODO: Adjust the images and the number of the decks
 	elif number_cards_deck > 0:
-		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
-	elif number_cards_deck == 0:
-		tmp_texture = load("res://img/mazo/set-deck-1-good.png")
+		tmp_texture = load("res://img/mazo/set-deck-1-good.png")	
 	get_node("tablero-info/set-deck").set_texture(tmp_texture)
+	
+	if number_cards_deck == 0:		
+		get_node("tablero-info/set-deck").modulate = color_apagado
+		
 	
 	######## Save the Hint somewhere so it doesnt change even if the user click several times
 	# It will only change when the boards is updated
@@ -385,6 +402,7 @@ func add_selections(n):
 		
 		selections.clear()
 		clear_buttons()
+		check_endgame()
 		
 func remove_selections(n):
 	# TODO: look for the selection
@@ -534,6 +552,8 @@ func update_timer():
 	if (((minutes != old_minutes) || (seconds != old_seconds)) && not global_pause ):
 		#print(str)
 		get_node("top-bar/game-time").set_text(str_time)
+		time_played = str_time
+		
 
 # We will check if there is no set
 func _on_nosetbtn_pressed() -> void:	
@@ -551,6 +571,9 @@ func _on_nosetbtn_pressed() -> void:
 		update_points(PUNTOS_NO_SET_CORRECTO)
 		var final_text = "You are right!\nthrere is no SET" + "\n+" + str(PUNTOS_NO_SET_CORRECTO) + " points"
 		get_node("tablero-info/set-result").set_text(final_text)
+		# If the player checks that there are no solutions and there are no more cards to be dealt then the game is over
+		if (len(cards) == 0):
+			show_end_screen()
 		
 func font_calculator(texto):
 	var long = len(texto)
@@ -597,8 +620,7 @@ func _on_hintbtn_pressed() -> void:
 			hint_modulate("tablero-cards/4-3/TextureRect")
 		else:
 			print("No solution")
-		number_hints = number_hints - 1
-		
+		number_hints = number_hints - 1		
 	else:
 		print("No more hints")
 	update_hints()
@@ -666,3 +688,19 @@ func deal_new_board():
 
 func _on_tramps_deal_pressed() -> void:
 	deal_new_board()
+	
+func show_end_screen():
+	global_pause = true
+	pause_starts = 0
+	pause_ends = 0	
+	pause_starts = Time.get_unix_time_from_system()
+	instance = end_screen.instantiate()
+	get_tree().get_root().add_child(instance)
+	
+func check_endgame():
+	# We will check if there are cards in the deck
+	if (len(cards) == 0):
+		# Now we have to ckeck if there are cards in tablero
+		if (len(tablero) == 0):
+			show_end_screen()
+		
