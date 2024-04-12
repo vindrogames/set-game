@@ -1,6 +1,6 @@
 #!/bin/sh
 for img in *.png ; 
 do 
-	convert -resize 128x90 "$img" "resized/$img" 
+	convert -resize 140x100 "$img" "resized/$img" 
 done
 

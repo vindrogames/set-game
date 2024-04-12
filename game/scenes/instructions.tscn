@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://xu1b7nsow5n5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0foqf"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.94902)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 21
+corner_radius_top_right = 21
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 21
+
+[node name="Instructions" type="Node2D"]
+
+[node name="background" type="TextureRect" parent="."]
+offset_left = -1.0
+offset_top = 65.0
+offset_right = 588.0
+offset_bottom = 882.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 63.0
+offset_top = 62.0
+offset_right = 525.0
+offset_bottom = 860.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0foqf")
+bbcode_enabled = true
+text = "[color=white][font_size=12]Recommended for ages 6+[/font_size]
+
+[fill]In our App version of the game you play a solitaire mode. The cards are shuffled and you will see 12 cards on the table. You will try to find a SET of 3 cards of the 12. Each card has 4 features:[/fill]
+
+[center][b]Numer[/b]  |  [b]Color[/b]  |  [b]Shape[/b]  |  [b]Fill[/b][/center]
+
+[fill]A SET consists of 3 cards that when looking at [i][b]each feature, one by one, are the same on all 3 cards or are different on all 3 cards[/b][/i]. All 3 features are independant and must constitue a SET for all 3 cards:[/fill]
+
+[center][img=121]res://img/cards/1-G-D-L.png[/img]    [img=121]res://img/cards/2-R-R-F.png[/img]    [img=121]res://img/cards/3-B-S-B.png[/img]
+[font_size=10]DIFFERENT shapes, DIFFERENT colors, DIFFERENT fills and DIFFERENT numbers[/font_size][/center]
+
+[center][img=121]res://img/cards/2-R-D-B.png[/img]    [img=121]res://img/cards/2-B-D-B.png[/img]    [img=121]res://img/cards/2-G-D-B.png[/img]
+[font_size=10]SAME shape, DIFFERENT color, SAME fill and SAME number[/font_size][/center]
+
+[center][img=121]res://img/cards/2-R-S-L.png[/img]    [img=121]res://img/cards/2-R-R-B.png[/img]    [img=121]res://img/cards/2-R-D-B.png[/img]
+[font_size=10]DIFFERENT shape, SAME color, DIFFERENT fill and SAME number[/font_size][/center]
+
+[fill]When you think you see a SET, select 3 cards by clicking on them and you will see your result! If you think there is no SET on the table, which can happen, then click the \"NO SET\" button. If there is no possible SET amongst the cards shown a new 12 cards will appear.[/fill]
+
+[center][font_size=12]
+[table=7] 
+[cell bg=fcdc4c][color=black][p align=center]  Correct SET  [/p][p align=center]  +3 points  [/p][/color][/cell]  
+[cell][color=black][/color][/cell]
+[cell bg=d43815][color=white][p align=center]  Incorrect SET  [/p][p align=center]  -2 points  [/p][/color][/cell]
+[cell][color=black][/color][/cell]
+[cell bg=fcdc4c][color=black][p align=center]  Correct NO SET  [/p][p align=center]  +4 points  [/p][/color][/cell] 
+[cell][color=black][/color][/cell]
+[cell bg=d43815][color=white][p align=center]  Incorrect NO SET  [/p][p align=center]  -5 points  [/p][/color][/cell] 
+[/table]
+[/font_size][/center]
+
+[fill]Lastly, we have a \"HINT\" button you can click depending on how many hints you have. A hint will cost you one point but will show you 1 card of the SET or, if there is no set, it will show the \"NO SET\" button. You start with only 3 hints and the game has 81 cards so use your hints wisely. If you guess correctly 7 times in a row, you earn an extra hint! Try to complete the game with as many points possible![/fill]"
