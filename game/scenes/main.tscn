@@ -507,6 +507,13 @@ offset_right = 318.0
 offset_bottom = 79.0
 text = "DEAL 12"
 
+[node name="reset_button" type="Button" parent="trampas"]
+offset_left = -186.0
+offset_top = 56.0
+offset_right = -51.0
+offset_bottom = 78.0
+text = "Reset Board"
+
 [node name="sound" type="Node" parent="."]
 
 [node name="wrong" type="AudioStreamPlayer" parent="sound"]
@@ -535,3 +542,4 @@ stream = ExtResource("27_jviby")
 [connection signal="pressed" from="tablero-info/hint-btn" to="." method="_on_hintbtn_pressed"]
 [connection signal="pressed" from="trampas/trampas_button" to="." method="_on_trampas_button_pressed"]
 [connection signal="pressed" from="trampas/tramps_deal" to="." method="_on_tramps_deal_pressed"]
+[connection signal="pressed" from="trampas/reset_button" to="." method="_on_reset_button_pressed"]

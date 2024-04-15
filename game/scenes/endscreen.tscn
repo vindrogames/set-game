@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bti6pkpq317ik"]
+[gd_scene load_steps=4 format=3 uid="uid://bti6pkpq317ik"]
+
+[ext_resource type="Script" path="res://scripts/endscreen.gd" id="1_2ty8t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0foqf"]
 content_margin_left = 14.0
@@ -16,7 +18,11 @@ corner_radius_top_right = 21
 corner_radius_bottom_right = 21
 corner_radius_bottom_left = 21
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqnif"]
+bg_color = Color(1, 0.342644, 0.282429, 1)
+
 [node name="endscreen" type="Node2D"]
+script = ExtResource("1_2ty8t")
 
 [node name="background" type="TextureRect" parent="."]
 offset_left = -1.0
@@ -36,3 +42,13 @@ YOU WIN
 
 Points: 25
 Time: 12"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 186.0
+offset_top = 524.0
+offset_right = 397.0
+offset_bottom = 567.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqnif")
+text = "Play Again?"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

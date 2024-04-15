@@ -16,6 +16,9 @@ const MAX_NUMBER_HINTS = 3
 ######### TRACKING SETTINGS ############
 var points = 0
 var time_played = 0
+var hints_used = 0
+var failed_sets = 0
+var correct_sets = 0
 ######### END ###########
 
 var cards = []
@@ -704,3 +707,44 @@ func check_endgame():
 		if (len(tablero) == 0):
 			show_end_screen()
 		
+func reset_board():
+	update_points(0)
+	cards.clear()
+	selections.clear()
+	init_cards()
+	tablero.clear()
+	var tablero_valido = false
+	while (not tablero_valido):
+	# We fill the initial board with the fichas
+		for i in range(0,12):
+			tablero.append(cards.pop_back())
+		# Lets check if there is at least 1 solution available
+		tablero_valido = solution_finder_simple()
+		# If there is no slution available we reset the state of the game completely
+		if (not tablero_valido):
+			## This was clearing the cheat solver helper button
+			## clear_solver_button_container()
+			cards.clear()
+			init_cards()
+			tablero.clear()
+	# Now we update the cards themselves on the board to reflect the cards on tablero	
+	# clear_solver_button_container()
+	var check_if_solution = solution_finder_simple()
+	if not check_if_solution:
+		print("Warning: there is no solution available")
+	else:
+		print("Ok: Solution available")
+	await get_tree().create_timer(2.0).timeout	
+	points = 0
+	time_played = 0
+	hints_used = 0
+	failed_sets = 0
+	correct_sets = 0
+	num_selected = 0
+	number_hints = MAX_NUMBER_HINTS
+	update_tablero(selections)
+	######### 
+
+func _on_reset_button_pressed() -> void:
+	reset_board()
+	
