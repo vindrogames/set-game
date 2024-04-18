@@ -46,6 +46,22 @@ var tween_timer: float = 0.5
 ######### HINT ############
 var hint
 
+######### TIME ##############
+
+var minutes = 0
+var old_minutes = 0
+var seconds = 0
+var old_seconds = 0
+
+# This will get the starting unix time in the format 232322323223
+var initial_unix_time: float = Time.get_unix_time_from_system()
+var initial_unix_time_int: int = initial_unix_time
+
+var pause_starts: float = 0
+var pause_ends: float = 0
+var pause_time: float = 0
+
+
 func _init() -> void:
 	init_cards()
 		
@@ -77,7 +93,7 @@ func _ready() -> void:
 		print("Warning: there is no solution available")
 	else:
 		print("Ok: Solution available")
-	await get_tree().create_timer(2.0).timeout
+	#await get_tree().create_timer(2.0).timeout
 	update_tablero(selections)
 	
 	#### LOAD SOUNDS ####
@@ -220,22 +236,25 @@ func update_tablero(last_selections):
 	var color_apagado = Color(0,0,0,0.5)
 	print(last_selections)
 	## try to do animation
-	if last_selections:
-		do_animation(last_selections)
+	##if last_selections:
+		##do_animation(last_selections)
 		
 	if tablero[0] != null:	
 		#await get_tree().create_timer(2.0).timeout
 		get_node("tablero-cards/1-1/TextureRect").set_texture(tablero[0].get_texture())
+		
 	else:
 		get_node("tablero-cards/1-1/TextureRect").modulate = color_apagado
 		get_node("tablero-cards/1-1").disabled = true
 	if tablero[1] != null:
 		get_node("tablero-cards/1-2/TextureRect").set_texture(tablero[1].get_texture())
+		
 	else:
 		get_node("tablero-cards/1-2/TextureRect").modulate = color_apagado
 		get_node("tablero-cards/1-2").disabled = true
 	if tablero[2] != null:
 		get_node("tablero-cards/1-3/TextureRect").set_texture(tablero[2].get_texture())
+		
 	else:
 		get_node("tablero-cards/1-3/TextureRect").modulate = color_apagado
 		get_node("tablero-cards/1-3").disabled = true
@@ -287,6 +306,8 @@ func update_tablero(last_selections):
 	#get_node("helper/tablero_label").set_text(str(fichas.size()))
 	#update_cards_left_state()
 	
+	if (DEBUG):
+		print(len(cards))
 	var number_cards_deck = len(cards)
 	var final_string =  "Cards:\n" + str(number_cards_deck)
 	get_node("tablero-info/stats-container/stat-cards").set_text(final_string)
@@ -334,7 +355,7 @@ func add_selections(n):
 			sound_select.stop()
 			sound_right.play()
 			update_points(PUNTOS_ACIERTO)
-			
+			correct_sets = correct_sets + 1
 			# Lets check if there is enough cards from the stack to pop out
 			if tablero.size() > 0 :
 				tablero[selections[0]] = cards.pop_front()
@@ -525,18 +546,7 @@ func remove_ins():
 # Timer function to check how much time passed until the users end the panel
 # TODO: A pausing feature for when game ends/ or when using the how to play button
 # we track if only 1 second or 1 minute passed to update the text on those intervals
-var minutes = 0
-var old_minutes = 0
-var seconds = 0
-var old_seconds = 0
 
-# This will get the starting unix time in the format 232322323223
-var initial_unix_time: float = Time.get_unix_time_from_system()
-var initial_unix_time_int: int = initial_unix_time
-
-var pause_starts: float = 0
-var pause_ends: float = 0
-var pause_time: float = 0
 	
 # Now the function itself, since we want to check how  much time passed
 func update_timer():	
@@ -708,7 +718,6 @@ func check_endgame():
 			show_end_screen()
 		
 func reset_board():
-	update_points(0)
 	cards.clear()
 	selections.clear()
 	init_cards()
@@ -734,17 +743,70 @@ func reset_board():
 		print("Warning: there is no solution available")
 	else:
 		print("Ok: Solution available")
-	await get_tree().create_timer(2.0).timeout	
+	
 	points = 0
+	update_points(0)
 	time_played = 0
 	hints_used = 0
 	failed_sets = 0
 	correct_sets = 0
 	num_selected = 0
 	number_hints = MAX_NUMBER_HINTS
+	update_timer()
+	update_hints()
+	clear_buttons()	
+	num_selected = 0
+	enable_all_buttons()
 	update_tablero(selections)
+	global_pause = false
+	get_node("tablero-info/set-deck").modulate = Color(1,1,1)
+	get_node("tablero-info/set-result").text = ""
+	### timer resets
+	minutes = 0
+	old_minutes = 0
+	seconds = 0
+	old_seconds = 0
+
+	# This will get the starting unix time in the format 232322323223
+	initial_unix_time = Time.get_unix_time_from_system()
+	initial_unix_time_int = initial_unix_time
+
+	pause_starts = 0
+	pause_ends = 0
+	pause_time = 0
+	
 	######### 
 
 func _on_reset_button_pressed() -> void:
 	reset_board()
 	
+func get_puntos():
+	return points
+
+func enable_all_buttons():	
+	#TODO: aqui tengo que arreglar el tema de que no me resetee el color de los botones
+	# DONE? -> Fixed i think
+	if tablero[0]:
+		get_node("tablero-cards/1-1").disabled = false
+	if tablero[1]:
+		get_node("tablero-cards/1-2").disabled = false
+	if tablero[2]:
+		get_node("tablero-cards/1-3").disabled = false
+	if tablero[3]:
+		get_node("tablero-cards/2-1").disabled = false
+	if tablero[4]:
+		get_node("tablero-cards/2-2").disabled = false
+	if tablero[5]:
+		get_node("tablero-cards/2-3").disabled = false
+	if tablero[6]:
+		get_node("tablero-cards/3-1").disabled = false
+	if tablero[7]:
+		get_node("tablero-cards/3-2").disabled = false
+	if tablero[8]:
+		get_node("tablero-cards/3-3").disabled = false
+	if tablero[9]:
+		get_node("tablero-cards/4-1").disabled = false
+	if tablero[10]:
+		get_node("tablero-cards/4-2").disabled = false
+	if tablero[11]:
+		get_node("tablero-cards/4-3").disabled = false
