@@ -1,7 +1,7 @@
 extends Node2D
 
 ######### DEBUG SETTINGS ############
-const DEBUG = true
+const DEBUG = false
 ######### END ###########
 
 ######### PARAMETER SETTINGS ###########
