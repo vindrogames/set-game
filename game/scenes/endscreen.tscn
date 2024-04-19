@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bti6pkpq317ik"]
+[gd_scene load_steps=5 format=3 uid="uid://bti6pkpq317ik"]
 
 [ext_resource type="Script" path="res://scripts/endscreen.gd" id="1_2ty8t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0foqf"]
-content_margin_left = 14.0
-content_margin_top = 14.0
-content_margin_right = 14.0
-content_margin_bottom = 14.0
+content_margin_left = 42.0
+content_margin_top = 42.0
+content_margin_right = 42.0
+content_margin_bottom = 42.0
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.94902)
 border_width_left = 3
 border_width_top = 3
@@ -18,8 +18,19 @@ corner_radius_top_right = 21
 corner_radius_bottom_right = 21
 corner_radius_bottom_left = 21
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgtw3"]
+bg_color = Color(0.207843, 0, 0.827451, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqnif"]
-bg_color = Color(1, 0.342644, 0.282429, 1)
+bg_color = Color(0.988235, 0.862745, 0.298039, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
 
 [node name="endscreen" type="Node2D"]
 script = ExtResource("1_2ty8t")
@@ -48,6 +59,10 @@ offset_left = 186.0
 offset_top = 524.0
 offset_right = 397.0
 offset_bottom = 567.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_pgtw3")
 theme_override_styles/normal = SubResource("StyleBoxFlat_aqnif")
 text = "Play Again?"
 

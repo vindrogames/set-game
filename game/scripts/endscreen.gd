@@ -13,18 +13,18 @@ func _ready() -> void:
 	
 	var text_label: RichTextLabel= get_node("RichTextLabel")
 	var temp_text = '''
-YOU WIN
-gfdgfdsgds
-gfdsgfdsgfds
-gfsdgdsgfsdgdsgds
+[center][font_size=21][color=fcdc4c]You made it![/color][/font_size][/center]
+
+[font_size=18]You have completed the entire deck, quite an astonishing feet! Here are your stats for this game:[/font_size]
 '''
-	temp_text += "Points: " + str(puntos) + "\n"
-	temp_text += "Time: " + str(time) + "\n"
+	temp_text += "\nTotal points: " + str(puntos) + "\n"
+	temp_text += "[color=fcdc4c]Correct Sets: " + str(correct_sets) + "[/color]\n"
+	temp_text += "[color=d43815]Incorrect Sets: " + str(failed_sets) + "[/color]\n"
+	# temp_text += "[color=fcdc4c]Correct No-Sets: " + str() + "[/color]\n"
+	# temp_text += "[color=d43815]Incorrect No-Sets: " + str() + "[/color]\n"
 	temp_text += "Hints Used: " + str(hints_used) + "\n"
-	temp_text += "Correct Sets: " + str(correct_sets) + "\n"
-	temp_text += "Failed Sets: " + str(failed_sets) + "\n"	
-	temp_text += "[center][img=121]res://img/cards/2-R-S-L.png[/img]    [img=121]res://img/cards/2-R-R-B.png[/img]    [img=121]res://img/cards/2-R-D-B.png[/img]
-[font_size=10]DIFFERENT shape, SAME color, DIFFERENT fill and SAME number[/font_size][/center]" + "\n"	
+	temp_text += "Time: " + str(time) + "\n"
+			
 	text_label.text = temp_text
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
