@@ -79,6 +79,7 @@ offset_left = 257.0
 offset_top = 442.0
 offset_right = 468.0
 offset_bottom = 485.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_aqnif")
 text = "Add High Score"
 
