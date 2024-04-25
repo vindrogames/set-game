@@ -55,7 +55,6 @@ Points: 25
 Time: 12"
 
 [node name="Button" type="Button" parent="."]
-
 offset_left = 186.0
 offset_top = 524.0
 offset_right = 397.0
