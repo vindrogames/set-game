@@ -36,3 +36,13 @@ func _on_button_pressed() -> void:
 	main.reset_board()
 	var instance = get_node(".")
 	get_tree().get_root().remove_child(instance)
+
+
+func _on_high_score_button_pressed() -> void:
+	#$HTTPRequest.request_completed.connect(_on_request_completed)
+	var name = $personText.text
+	var main = get_tree().get_root().get_node("main")
+	var points = main.points
+	var string_request = "https://highscoredev.fly.dev/highscore/" + "add_user/?nickname="+name+"&points="+str(points)
+	$HTTPRequest.request(string_request)	
+	$highScoreButton.disabled = true
